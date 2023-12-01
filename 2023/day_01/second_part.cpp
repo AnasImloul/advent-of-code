@@ -7,16 +7,16 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <sstream>
 #include "trebuchet.h"
 
-std::string digits[18] = {
-        "one","two", "three",
-        "four", "five", "six",
-        "seven", "eight", "nine"
-};
 
 namespace {
+    std::string digits[9] = {
+            "one","two", "three",
+            "four", "five", "six",
+            "seven", "eight", "nine"
+    };
+
     int longestMatch(const std::string& line, const std::string& substring, int start = 0) {
         int j = 0;
         while (j < substring.size() && start + j < line.size() && substring[j] == line[start + j]) {
@@ -49,19 +49,10 @@ namespace {
             }
             i++;
         }
-
         return left.first * 10 + right.first;
     }
 }
 
 int trebuchet::secondPart() {
-    std::streambuf *oldCin = std::cin.rdbuf();
-    std::ifstream in("../2023/day_01/in2.txt");
-    std::cin.rdbuf(in.rdbuf());
-    int answer = trebuchet::solve(parse);
-    std::cin.rdbuf(oldCin);
-
-
-
-    return answer;
+    return trebuchet::solve(parse);
 }

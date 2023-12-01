@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include <fstream>
-#include <iostream>
 #include <string>
 #include "trebuchet.h"
 
@@ -19,18 +17,10 @@ namespace {
             }
             i++;
         }
-
         return left * 10 + right;
     }
 }
 
 int trebuchet::firstPart() {
-    std::streambuf *oldCin = std::cin.rdbuf();
-    std::ifstream in("../2023/day_01/in2.txt");
-    std::cin.rdbuf(in.rdbuf());
-
-    int answer = trebuchet::solve(parse);
-
-    std::cin.rdbuf(oldCin);
-    return answer;
+    return trebuchet::solve(parse);
 }
