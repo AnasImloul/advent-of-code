@@ -17,7 +17,7 @@ namespace {
             "seven", "eight", "nine"
     };
 
-    int longestMatch(const std::string& line, const std::string& substring, int start = 0) {
+    int longestPrefix(const std::string& line, const std::string& substring, int start) {
         int j = 0;
         while (j < substring.size() && start + j < line.size() && substring[j] == line[start + j]) {
             j++;
@@ -27,11 +27,12 @@ namespace {
 
     int parse(const std::string& line) {
         std::pair<int, int> left = {-1, INT_MAX}, right = {-1, INT_MIN};
+
         for (int d = 1; d <= 9; d++) {
             std::string digit = digits[d - 1];
             int i = 0;
             while (i < line.size()) {
-                int j = longestMatch(line, digit, i);
+                int j = longestPrefix(line, digit, i);
                 if (j == digit.size()) {
                     if (left.second  > i) left = {d, i};
                     if (right.second < i) right = {d, i};
