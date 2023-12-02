@@ -7,12 +7,12 @@
 #include <fstream>
 #include <iostream>
 
-using Parser = int(const std::string&);
-
 namespace trebuchet {
     int firstPart();
     int secondPart();
     namespace {
+        using Parser = int(const std::string&);
+
         int solve(Parser parser) {
             std::streambuf *oldCin = std::cin.rdbuf();
             std::ifstream in("../2023/day_01/in.txt");
