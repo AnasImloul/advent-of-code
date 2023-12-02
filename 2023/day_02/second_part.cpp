@@ -9,7 +9,7 @@
 int solver() {
     int answer = 0;
     std::string line;
-    while (!std::cin.eof() && std::getline(std::cin, line)) {
+    while (std::getline(std::cin, line)) {
         auto [r, g, b] = cubeConundrum::parse(line);
         answer += r * g * b;
     }
