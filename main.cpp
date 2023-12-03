@@ -1,6 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include "2023/day_02/cube_conundrum.h"
+#include "2023/day_03/gear_ratios.h"
 
 int64_t time() {
     using namespace std::chrono;
@@ -9,7 +9,7 @@ int64_t time() {
 
 int main() {
     int64_t start = time();
-    std::cout << cubeConundrum::firstPart() << std::endl;
+    std::cout << gearRatios::secondPart() << std::endl;
     std::cout << time() - start << "ms" << std::endl;
     return 0;
 }
