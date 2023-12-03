@@ -24,6 +24,17 @@ struct hash_pair {
     }
 };
 
+void checkForSpecialCharacter(
+        int i, int j, bool& marked,
+        std::vector<std::string>& lines,
+        std::vector<std::pair<int, int>>& currentGears
+        ) {
+    if (!isOutOfBounds(i ,j, lines.size(), lines[i].size())) {
+        marked |= isSpecialChar(lines[i][j]);
+        if (lines[i][j] == '*') currentGears.push_back({i, j});
+    }
+}
+
 int solver() {
     int answer = 0;
     std::vector<std::string> lines = readLines();
@@ -38,50 +49,23 @@ int solver() {
             bool marked = false;
             std::vector<std::pair<int, int>> currentGears;
 
-            if (!isOutOfBounds(i - 1 ,j - 1, n, m)) {
-                marked |= isSpecialChar(lines[i - 1][j - 1]);
-                if (lines[i - 1][j - 1] == '*') currentGears.push_back({i - 1, j - 1});
-            }
-            if (!isOutOfBounds(i ,j - 1, n, m)) {
-                marked |= isSpecialChar(lines[i][j - 1]);
-                if (lines[i][j - 1] == '*') currentGears.push_back({i, j - 1});
-            }
-            if (!isOutOfBounds(i + 1 ,j - 1, n, m)) {
-                marked |= isSpecialChar(lines[i + 1][j - 1]);
-                if (lines[i + 1][j - 1] == '*') currentGears.push_back({i + 1, j - 1});
-            }
+            checkForSpecialCharacter(i - 1, j - 1, marked, lines, currentGears);
+            checkForSpecialCharacter(i, j - 1, marked, lines, currentGears);
+            checkForSpecialCharacter(i + 1, j - 1, marked, lines, currentGears);
 
             int number = 0;
             while (j < m && isdigit(lines[i][j])) {
-                if (!isOutOfBounds(i - 1 ,j, n, m)) {
-                    marked |= isSpecialChar(lines[i - 1][j]);
-                    if (lines[i - 1][j] == '*') currentGears.push_back({i - 1, j});
-                }
-                if (!isOutOfBounds(i ,j, n, m)) {
-                    marked |= isSpecialChar(lines[i][j]);
-                    if (lines[i][j] == '*') currentGears.push_back({i, j});
-                }
-                if (!isOutOfBounds(i + 1 ,j, n, m)) {
-                    marked |= isSpecialChar(lines[i + 1][j]);
-                    if (lines[i + 1][j] == '*') currentGears.push_back({i + 1, j});
-                }
+                checkForSpecialCharacter(i - 1, j, marked, lines, currentGears);
+                checkForSpecialCharacter(i, j, marked, lines, currentGears);
+                checkForSpecialCharacter(i + 1, j, marked, lines, currentGears);
 
                 number = number * 10 + (lines[i][j] - '0');
                 j++;
             }
 
-            if (!isOutOfBounds(i - 1 ,j, n, m)) {
-                marked |= isSpecialChar(lines[i - 1][j]);
-                if (lines[i - 1][j] == '*') currentGears.push_back({i - 1, j});
-            }
-            if (!isOutOfBounds(i ,j, n, m)) {
-                marked |= isSpecialChar(lines[i][j]);
-                if (lines[i][j] == '*') currentGears.push_back({i, j});
-            }
-            if (!isOutOfBounds(i + 1 ,j, n, m)) {
-                marked |= isSpecialChar(lines[i + 1][j]);
-                if (lines[i + 1][j] == '*') currentGears.push_back({i + 1, j});
-            }
+            checkForSpecialCharacter(i - 1, j, marked, lines, currentGears);
+            checkForSpecialCharacter(i, j, marked, lines, currentGears);
+            checkForSpecialCharacter(i + 1, j, marked, lines, currentGears);
 
             if (!marked) continue;
 
@@ -89,11 +73,8 @@ int solver() {
                 if (gears.find(gear) == gears.end()) {
                     gears[gear] = {number, -1};
                 } else {
-                    if (gears[gear].second == -1) {
-                        gears[gear].second = number;
-                    } else {
-                        gears[gear].first = -1;
-                    }
+                    if (gears[gear].second == -1) gears[gear].second = number;
+                    else gears[gear].first = -1;
                 }
             }
         }

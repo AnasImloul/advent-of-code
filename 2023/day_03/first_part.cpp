@@ -10,6 +10,15 @@
 
 using namespace gearRatios;
 
+
+void checkForSpecialCharacter(
+        int i, int j, bool& marked,
+        std::vector<std::string>& lines) {
+    if (!isOutOfBounds(i, j, lines.size(), lines[i].size())) {
+        marked |= isSpecialChar(lines[i][j]);
+    }
+}
+
 int solver() {
     int answer = 0;
 
@@ -25,24 +34,23 @@ int solver() {
 
             bool marked = false;
 
-            if (!isOutOfBounds(i - 1 ,j - 1, n, m)) marked |= isSpecialChar(lines[i - 1][j - 1]);
-            if (!isOutOfBounds(i ,j - 1, n, m)) marked |= isSpecialChar(lines[i][j - 1]);
-            if (!isOutOfBounds(i + 1 ,j - 1, n, m)) marked |= isSpecialChar(lines[i + 1][j - 1]);
+            checkForSpecialCharacter(i - 1, j - 1, marked, lines);
+            checkForSpecialCharacter(i, j - 1, marked, lines);
+            checkForSpecialCharacter(i + 1, j - 1, marked, lines);
 
             int number = 0;
             while (j < m && isdigit(lines[i][j])) {
-                if (!isOutOfBounds(i - 1 ,j, n, m)) marked |= isSpecialChar(lines[i - 1][j]);
-                if (!isOutOfBounds(i ,j, n, m)) marked |= isSpecialChar(lines[i][j]);
-                if (!isOutOfBounds(i + 1 ,j, n, m)) marked |= isSpecialChar(lines[i + 1][j]);
+                checkForSpecialCharacter(i - 1, j, marked, lines);
+                checkForSpecialCharacter(i, j, marked, lines);
+                checkForSpecialCharacter(i + 1, j, marked, lines);
 
                 number = number * 10 + (lines[i][j] - '0');
                 j++;
             }
 
-            if (!isOutOfBounds(i - 1 ,j, n, m)) marked |= isSpecialChar(lines[i - 1][j]);
-            if (!isOutOfBounds(i ,j, n, m)) marked |= isSpecialChar(lines[i][j]);
-            if (!isOutOfBounds(i + 1 ,j, n, m)) marked |= isSpecialChar(lines[i + 1][j]);
-
+            checkForSpecialCharacter(i - 1, j, marked, lines);
+            checkForSpecialCharacter(i, j, marked, lines);
+            checkForSpecialCharacter(i + 1, j, marked, lines);
 
             if (marked) answer += number;
 
