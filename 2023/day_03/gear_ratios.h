@@ -37,7 +37,7 @@ namespace gearRatios {
             std::vector<std::string> lines;
             while (!std::cin.eof()) {
                 std::string line;
-                std::cin >> line;
+                std::getline(std::cin, line);
                 lines.push_back(line);
             }
             return lines;
