@@ -15,8 +15,6 @@ using namespace scratchcards;
 int solver() {
     int answer = 0;
 
-    bool winner[100];
-
     for (std::string& line : readLines()) {
         answer += 1 << countMatches(line);
     }

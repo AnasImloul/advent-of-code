@@ -6,6 +6,8 @@
 
 #include <array>
 #include <fstream>
+#include "../../utils.h"
+
 
 namespace cubeConundrum {
     int firstPart();
@@ -26,9 +28,8 @@ namespace cubeConundrum {
         std::array<int, 3> parse(const std::string& line) {
 
             int i = 0;
-            while (i < line.size() && line[i] != ':') {
-                i++;
-            }
+            utils::skipUntil(line, i, [](char c){return c == ':';});
+
             // increment two to account for the ':' & the white space after it
             i += 2;
 
@@ -39,7 +40,6 @@ namespace cubeConundrum {
                     amount = amount * 10 + (line[i] - '0');
                     i++;
                 }
-
                 // increment one to account for the white space after each digit
                 i++;
 
@@ -47,9 +47,7 @@ namespace cubeConundrum {
                 else if (line[i] == 'g') green = std::max(green, amount);
                 else if (line[i] == 'b') blue = std::max(blue, amount);
 
-                while (i < line.size() && line[i] != ',' && line[i] != ';') {
-                    i++;
-                }
+                utils::skipUntil(line, i, [](char c){return c == ',' || c == ';';});
 
                 // increment two to account for the colon & the whitespace
                 i += 2;

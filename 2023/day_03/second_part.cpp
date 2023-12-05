@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include "gear_ratios.h"
+#include "../../utils.h"
 
 
 using namespace gearRatios;
@@ -29,7 +30,7 @@ void checkForSpecialCharacter(
         std::vector<std::string>& lines,
         std::vector<std::pair<int, int>>& currentGears
         ) {
-    if (!isOutOfBounds(i ,j, lines.size(), lines[i].size())) {
+    if (!utils::isOutOfBounds(i ,j, lines.size(), lines[i].size())) {
         marked |= isSpecialChar(lines[i][j]);
         if (lines[i][j] == '*') currentGears.push_back({i, j});
     }
@@ -37,14 +38,15 @@ void checkForSpecialCharacter(
 
 int solver() {
     int answer = 0;
-    std::vector<std::string> lines = readLines();
+    std::vector<std::string> lines = utils::readLines();
     std::unordered_map<std::pair<int, int>, std::pair<int, int>, hash_pair<int, int>> gears;
 
     int n = lines.size();
     for (int i = 0; i < n; i++) {
         int m = lines[i].size(), j = 0;
         while (j < m) {
-            while (j < m && !isdigit(lines[i][j])) j++;
+
+            utils::skipUntil(lines[i], j, [](char c){return (bool)isdigit(c);});
 
             bool marked = false;
             std::vector<std::pair<int, int>> currentGears;

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include "gear_ratios.h"
+#include "../../utils.h"
 
 using namespace gearRatios;
 
@@ -14,7 +15,7 @@ using namespace gearRatios;
 void checkForSpecialCharacter(
         int i, int j, bool& marked,
         std::vector<std::string>& lines) {
-    if (!isOutOfBounds(i, j, lines.size(), lines[i].size())) {
+    if (!utils::isOutOfBounds(i, j, lines.size(), lines[i].size())) {
         marked |= isSpecialChar(lines[i][j]);
     }
 }
@@ -22,15 +23,14 @@ void checkForSpecialCharacter(
 int solver() {
     int answer = 0;
 
-    std::vector<std::string> lines = readLines();
+    std::vector<std::string> lines = utils::readLines();
 
     int n = lines.size();
     for (int i = 0; i < n; i++) {
         int m = lines[i].size(), j = 0;
         while (j < m) {
-            while (j < m && !isdigit(lines[i][j])) {
-                j++;
-            }
+
+            utils::skipUntil(lines[i], j, [](char c){return (bool)isdigit(c);});
 
             bool marked = false;
 

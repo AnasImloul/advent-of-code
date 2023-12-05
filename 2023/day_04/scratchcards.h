@@ -8,6 +8,7 @@
 #include <fstream>
 #include <vector>
 #include <cstring>
+#include "../../utils.h"
 
 
 namespace scratchcards {
@@ -32,13 +33,11 @@ namespace scratchcards {
 
             int match = 0, i = 0;
 
-            while (i < line.size() && line[i] != ':')
-                i++;
+            utils::skipUntil(line, i, [](char c){return c == ':';});
 
             i++;
             while (i < line.size()) {
-                while (i < line.size() && line[i] == ' ')
-                    i++;
+                utils::skipUntil(line, i, [](char c){return c != ' ';});
 
                 if (line[i] == '|') break;
 
@@ -50,8 +49,7 @@ namespace scratchcards {
             }
 
             while (i < line.size()) {
-                while (i < line.size() && !isdigit(line[i]))
-                    i++;
+                utils::skipUntil(line, i, [](char c){return (bool)isdigit(c);});
 
                 int number = 0;
                 while (i < line.size() && isdigit(line[i]))
