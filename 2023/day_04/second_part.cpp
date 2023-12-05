@@ -12,7 +12,7 @@ using namespace scratchcards;
 
 
 int solver() {
-    std::vector<std::string> lines = readLines();
+    std::vector<std::string> lines = utils::readLines();
     std::vector<int> count(lines.size(), 1);
 
     for (int i = (int)lines.size() - 1; i >= 0; i--) {

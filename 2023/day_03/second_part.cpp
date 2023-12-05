@@ -14,16 +14,6 @@
 
 using namespace gearRatios;
 
-template <class T1, class T2>
-struct hash_pair {
-    size_t operator()(const std::pair<T1, T2>& p) const {
-        auto hash1 = std::hash<T1>{}(p.first);
-        auto hash2 = std::hash<T2>{}(p.second);
-
-        if (hash1 != hash2) return hash1 ^ hash2;
-        return hash1;
-    }
-};
 
 void checkForSpecialCharacter(
         int i, int j, bool& marked,
@@ -39,7 +29,7 @@ void checkForSpecialCharacter(
 int solver() {
     int answer = 0;
     std::vector<std::string> lines = utils::readLines();
-    std::unordered_map<std::pair<int, int>, std::pair<int, int>, hash_pair<int, int>> gears;
+    std::unordered_map<std::pair<int, int>, std::pair<int, int>, utils::hash_pair<int, int>> gears;
 
     int n = lines.size();
     for (int i = 0; i < n; i++) {
