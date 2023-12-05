@@ -9,26 +9,16 @@
 #include <vector>
 #include <cstring>
 #include <map>
+#include <cstdint>
 #include "../../utils.h"
 
 
-
 namespace fertilizer {
-    int firstPart();
-    int secondPart();
+    inline static std::string input_file = "../2023/day_05/in.txt";
+
+    ll firstPart();
+    ll secondPart();
     namespace {
-        using Solver = int();
-        int solve(Solver solver) {
-            std::streambuf *oldCin = std::cin.rdbuf();
-            std::ifstream in("../2023/day_05/in.txt");
-            std::cin.rdbuf(in.rdbuf());
-
-            int answer = solver();
-
-            std::cin.rdbuf(oldCin);
-            return answer;
-        }
-
         using Transformer = std::map<std::pair<ll, ll>, std::pair<ll, ll>>;
 
         Transformer parseTransformer(std::vector<std::string>& lines, int& i) {
@@ -61,40 +51,47 @@ namespace fertilizer {
 
             auto [start, end] = interval;
 
-            for (auto it = transformer.begin(); it != transformer.end(); it++) {
-                auto [source, destination] = *it;
+            auto it = transformer.begin();
 
+            while (it != transformer.end()) {
+                auto [source, destination] = *it;
                 if (source.first > start) {
                     if (source.first > end) {
                         intervals.emplace_back(start, end);
+                        start = end + 1;
                         break;
-                    } else {
-                        intervals.emplace_back(start, source.first - 1);
-                        start = source.first;
                     }
-
-                    if (source.second > end) {
-                        intervals.emplace_back(map({start, end}, source, destination));
-                        return intervals;
-                    } else {
-                        intervals.emplace_back(map({start, source.second}, source, destination));
-                        start = source.second + 1;
-                    }
-                } else {
-                    if (source.second < start) continue;
-                    if (source.second > end) {
-                        intervals.emplace_back(map({start, end}, source, destination));
-                        return intervals;
-                    } else {
-                        intervals.emplace_back(map({start, source.second}, source, destination));
-                        start = source.second + 1;
-                    }
+                    intervals.emplace_back(start, source.first - 1);
+                    start = source.first;
+                    continue;
                 }
+
+                if (source.second >= start) {
+                    if (source.second >= end) {
+                        intervals.emplace_back(map({start, end}, source, destination));
+                        start = end + 1;
+                        break;
+                    }
+                    intervals.emplace_back(map({start, source.second}, source, destination));
+                    start = source.second + 1;
+                }
+                it++;
             }
 
-            intervals.emplace_back(start, end);
+            if (start <= end) intervals.emplace_back(start, end);
 
             return intervals;
+        }
+
+        ll dfs(std::pair<ll, ll> interval, std::vector<Transformer>& transformers, int i) {
+            if (i == 7) return interval.first;
+
+            ll result = INT64_MAX;
+            for (auto _interval : transform(interval, transformers[i])) {
+                result = std::min(result, dfs(_interval, transformers, i + 1));
+            }
+
+            return result;
         }
     }
 }

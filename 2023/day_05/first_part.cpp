@@ -1,35 +1,14 @@
 //
 // Created by user on 03/12/2023.
 //
-
-#pragma once
-
 #include <iostream>
 #include <vector>
 #include "fertilizer.h"
-#include <cstring>
 #include <cstdint>
 
 using namespace fertilizer;
 
-
-
-ll dfs(std::pair<ll, ll> interval, std::vector<Transformer>& transformers, int i) {
-    if (i == 7) {
-        return interval.first;
-    }
-
-    ll result = INT64_MAX;
-    for (auto _interval : transform(interval, transformers[i])) {
-        result = std::min(result, dfs(_interval, transformers, i + 1));
-    }
-
-    return result;
-}
-
-
-int solver() {
-
+ll solver() {
     std::vector<std::string> lines = utils::readLines();
     int i = 0;
 
@@ -50,8 +29,6 @@ int solver() {
     return answer;
 }
 
-
-int fertilizer::firstPart() {
-    return fertilizer::solve(solver);
+ll fertilizer::firstPart() {
+    return utils::solve<ll>(solver, input_file);
 }
-
