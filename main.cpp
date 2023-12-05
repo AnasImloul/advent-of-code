@@ -1,6 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include "2023/day_02/cube_conundrum.h"
+#include "2023/day_05/fertilizer.h"
 
 int64_t time() {
     using namespace std::chrono;
@@ -8,6 +8,6 @@ int64_t time() {
 }
 
 int main() {
-    std::cout << cubeConundrum::firstPart() << std::endl;
+    std::cout << fertilizer::secondPart() << std::endl;
     return 0;
 }

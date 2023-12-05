@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 
+typedef long long ll;
 
 namespace utils {
     template <typename T>
@@ -22,6 +23,26 @@ namespace utils {
 
     int nextInt(const std::string& str, int& i);
 
+    std::vector<int> parseIntegers(std::string& line);
+
+    ll nextLong(const std::string& str, int& i);
+
+    std::vector<ll> parseLongs(std::string& line);
+
+    template <typename T>
+    void show(std::vector<T> arr);
+
     template <typename T>
     T sum(const std::vector<T>& arr);
+
+    template <class T1, class T2>
+    struct hash_pair {
+        size_t operator()(const std::pair<T1, T2>& p) const {
+            auto hash1 = std::hash<T1>{}(p.first);
+            auto hash2 = std::hash<T2>{}(p.second);
+
+            if (hash1 != hash2) return hash1 ^ hash2;
+            return hash1;
+        }
+    };
 }
