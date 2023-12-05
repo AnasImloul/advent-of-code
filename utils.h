@@ -37,12 +37,12 @@ namespace utils {
 
     template <class T1, class T2>
     struct hash_pair {
-        size_t operator()(const std::pair<T1, T2>& p) const {
-            auto hash1 = std::hash<T1>{}(p.first);
-            auto hash2 = std::hash<T2>{}(p.second);
-
-            if (hash1 != hash2) return hash1 ^ hash2;
-            return hash1;
-        }
+        size_t operator()(const std::pair<T1, T2>& p) const;
     };
+
+    template <typename T>
+    using Solver = T();
+
+    template <typename T>
+    T solve(Solver<T> solver,const std::string& input_file);
 }

@@ -10,23 +10,13 @@
 
 
 namespace cubeConundrum {
+    inline static std::string input_string = "../2023/day_02/in.txt";
     int firstPart();
     int secondPart();
     namespace {
-        using Solver = int();
-        int solve(Solver solver) {
-            std::streambuf *oldCin = std::cin.rdbuf();
-            std::ifstream in("../2023/day_02/in.txt");
-            std::cin.rdbuf(in.rdbuf());
+        using Triplet = std::array<int, 3>;
 
-            int answer = solver();
-
-            std::cin.rdbuf(oldCin);
-            return answer;
-        }
-
-        std::array<int, 3> parse(const std::string& line) {
-
+        Triplet parse(const std::string& line) {
             int i = 0;
             utils::skipUntil(line, i, [](char c){return c == ':';});
 

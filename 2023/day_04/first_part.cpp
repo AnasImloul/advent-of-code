@@ -2,7 +2,6 @@
 // Created by user on 03/12/2023.
 //
 
-#pragma once
 
 #include <iostream>
 #include <vector>
@@ -24,6 +23,6 @@ int solver() {
 
 
 int scratchcards::firstPart() {
-    return scratchcards::solve(solver);
+    return utils::solve(solver, input_file);
 }
 

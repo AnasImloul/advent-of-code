@@ -8,25 +8,11 @@
 #include <iostream>
 
 namespace trebuchet {
+    inline static std::string input_string = "../2023/day_01/in.txt";
     int firstPart();
     int secondPart();
     namespace {
         using Parser = int(const std::string&);
-
-        int solve(Parser parser) {
-            std::streambuf *oldCin = std::cin.rdbuf();
-            std::ifstream in("../2023/day_01/in.txt");
-            std::cin.rdbuf(in.rdbuf());
-
-            int answer = 0;
-            std::string line;
-            while (std::cin >> line) {
-                answer += parser(line);
-            }
-
-            std::cin.rdbuf(oldCin);
-            return answer;
-        }
     }
 }
 

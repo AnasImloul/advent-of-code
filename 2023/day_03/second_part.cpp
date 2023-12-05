@@ -3,8 +3,6 @@
 //
 
 
-#pragma once
-
 #include <iostream>
 #include <vector>
 #include <unordered_map>
@@ -26,7 +24,7 @@ void checkForSpecialCharacter(
     }
 }
 
-int solver() {
+int solve() {
     int answer = 0;
     std::vector<std::string> lines = utils::readLines();
     std::unordered_map<std::pair<int, int>, std::pair<int, int>, utils::hash_pair<int, int>> gears;
@@ -83,7 +81,7 @@ int solver() {
 
 
 int gearRatios::secondPart() {
-    return gearRatios::solve(solver);
+    return utils::solve(solve, input_string);
 }
 
 

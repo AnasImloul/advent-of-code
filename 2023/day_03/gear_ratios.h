@@ -10,21 +10,10 @@
 
 
 namespace gearRatios {
+    inline static std::string input_string = "../2023/day_03/in.txt";
     int firstPart();
     int secondPart();
     namespace {
-        using Solver = int();
-        int solve(Solver solver) {
-            std::streambuf *oldCin = std::cin.rdbuf();
-            std::ifstream in("../2023/day_03/in.txt");
-            std::cin.rdbuf(in.rdbuf());
-
-            int answer = solver();
-
-            std::cin.rdbuf(oldCin);
-            return answer;
-        }
-
         inline bool isSpecialChar(char c) {
             return !isdigit(c) && c != '.';
         }

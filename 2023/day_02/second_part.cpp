@@ -1,12 +1,16 @@
 //
 // Created by user on 02/12/2023.
 //
-#pragma once
+
 
 #include <iostream>
 #include "cube_conundrum.h"
 
-int solver() {
+
+using namespace cubeConundrum;
+
+
+int solve() {
     int answer = 0;
     std::string line;
     while (std::getline(std::cin, line)) {
@@ -17,5 +21,5 @@ int solver() {
 }
 
 int cubeConundrum::secondPart() {
-    return cubeConundrum::solve(solver);
+    return utils::solve(solve, input_string);
 }

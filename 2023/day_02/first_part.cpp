@@ -2,13 +2,13 @@
 // Created by user on 02/12/2023.
 //
 
-#pragma once
 
 #include <iostream>
 #include "cube_conundrum.h"
 
+using namespace cubeConundrum;
 
-int solver() {
+int solve() {
     int answer = 0, id = 1;
     std::string line;
     while (std::getline(std::cin, line)) {
@@ -21,5 +21,5 @@ int solver() {
 
 
 int cubeConundrum::firstPart() {
-    return cubeConundrum::solve(solver);
+    return utils::solve(solve, input_string);
 }

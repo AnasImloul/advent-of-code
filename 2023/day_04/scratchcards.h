@@ -12,21 +12,10 @@
 
 
 namespace scratchcards {
+    inline static std::string input_file = "../2023/day_04/in.txt";
     int firstPart();
     int secondPart();
     namespace {
-        using Solver = int();
-        int solve(Solver solver) {
-            std::streambuf *oldCin = std::cin.rdbuf();
-            std::ifstream in("../2023/day_04/in.txt");
-            std::cin.rdbuf(in.rdbuf());
-
-            int answer = solver();
-
-            std::cin.rdbuf(oldCin);
-            return answer;
-        }
-
         int countMatches(const std::string& line) {
             static bool winner[100];
             memset(winner, false, sizeof(winner));

@@ -2,7 +2,7 @@
 // Created by user on 03/12/2023.
 //
 
-#pragma once
+
 
 #include <iostream>
 #include <vector>
@@ -20,7 +20,7 @@ void checkForSpecialCharacter(
     }
 }
 
-int solver() {
+int solve() {
     int answer = 0;
 
     std::vector<std::string> lines = utils::readLines();
@@ -62,6 +62,6 @@ int solver() {
 
 
 int gearRatios::firstPart() {
-    return gearRatios::solve(solver);
+    return utils::solve(solve, input_string);
 }
 
