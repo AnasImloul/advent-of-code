@@ -23,4 +23,3 @@ int solver() {
 int cubeConundrum::firstPart() {
     return cubeConundrum::solve(solver);
 }
-

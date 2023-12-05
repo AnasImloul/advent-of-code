@@ -27,8 +27,8 @@ namespace scratchcards {
             return answer;
         }
 
-        int countMatches(std::string& line) {
-            bool winner[100];
+        int countMatches(const std::string& line) {
+            static bool winner[100];
             memset(winner, false, sizeof(winner));
 
             int match = 0, i = 0;
@@ -41,9 +41,7 @@ namespace scratchcards {
 
                 if (line[i] == '|') break;
 
-                int number = 0;
-                while (i < line.size() && isdigit(line[i]))
-                    number = number * 10 + (line[i++] - '0');
+                int number = utils::nextInt(line, i);
 
                 winner[number] = true;
             }
@@ -51,24 +49,12 @@ namespace scratchcards {
             while (i < line.size()) {
                 utils::skipUntil(line, i, [](char c){return (bool)isdigit(c);});
 
-                int number = 0;
-                while (i < line.size() && isdigit(line[i]))
-                    number = number * 10 + (line[i++] - '0');
+                int number = utils::nextInt(line, i);
 
                 if (winner[number]) match++;
             }
 
             return match;
-        }
-
-        std::vector<std::string> readLines() {
-            std::vector<std::string> lines;
-            while (!std::cin.eof()) {
-                std::string line;
-                std::getline(std::cin, line);
-                lines.push_back(line);
-            }
-            return lines;
         }
     }
 }

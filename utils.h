@@ -19,4 +19,9 @@ namespace utils {
     std::vector<std::string> readLines();
 
     bool isOutOfBounds(int i, int j, int n, int m);
+
+    int nextInt(const std::string& str, int& i);
+
+    template <typename T>
+    T sum(const std::vector<T>& arr);
 }

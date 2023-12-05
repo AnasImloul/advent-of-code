@@ -10,6 +10,15 @@ void utils::skipUntil(const std::string &str, int &i, Condition<char> *condition
     }
 }
 
+int utils::nextInt(const std::string& str, int& i) {
+    int number = 0;
+    while (i < str.size() && isdigit(str[i])) {
+        number = number * 10 + (str[i] - '0');
+        i++;
+    }
+    return number;
+}
+
 std::vector<std::string> utils::readLines() {
     std::vector<std::string> lines;
     while (!std::cin.eof()) {
@@ -22,4 +31,11 @@ std::vector<std::string> utils::readLines() {
 
 inline bool utils::isOutOfBounds(int i, int j, int n, int m) {
     return i < 0 | i >= n | j < 0 | j >= m;
+}
+
+template <typename T>
+T utils::sum(const std::vector<T>& arr) {
+    T answer = 0;
+    for (auto& e: arr) answer += e;
+    return answer;
 }

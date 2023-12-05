@@ -25,9 +25,9 @@ int solver() {
 
     std::vector<std::string> lines = utils::readLines();
 
-    int n = lines.size();
+    int n = (int)lines.size();
     for (int i = 0; i < n; i++) {
-        int m = lines[i].size(), j = 0;
+        int m = (int)lines[i].size(), j = 0;
         while (j < m) {
 
             utils::skipUntil(lines[i], j, [](char c){return (bool)isdigit(c);});

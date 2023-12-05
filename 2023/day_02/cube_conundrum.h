@@ -30,27 +30,19 @@ namespace cubeConundrum {
             int i = 0;
             utils::skipUntil(line, i, [](char c){return c == ':';});
 
-            // increment two to account for the ':' & the white space after it
-            i += 2;
-
             int red = 0, blue = 0, green = 0;
             while (i < line.size()) {
-                int amount = 0;
-                while (i < line.size() && isdigit(line[i])) {
-                    amount = amount * 10 + (line[i] - '0');
-                    i++;
-                }
-                // increment one to account for the white space after each digit
-                i++;
+                utils::skipUntil(line, i, [](char c){return (bool)isdigit(c);});
+
+                int amount = utils::nextInt(line, i);
+
+                utils::skipUntil(line, i, [](char c){return c != ' ';});
 
                 if (line[i] == 'r') red = std::max(red, amount);
                 else if (line[i] == 'g') green = std::max(green, amount);
                 else if (line[i] == 'b') blue = std::max(blue, amount);
 
                 utils::skipUntil(line, i, [](char c){return c == ',' || c == ';';});
-
-                // increment two to account for the colon & the whitespace
-                i += 2;
             }
 
             return {red, green, blue};
