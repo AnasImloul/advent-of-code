@@ -10,7 +10,7 @@
 
 
 namespace gearRatios {
-    inline static std::string input_string = "../2023/day_03/in.txt";
+    inline static std::string input_file = "../2023/day_03/in.txt";
     int firstPart();
     int secondPart();
     namespace {

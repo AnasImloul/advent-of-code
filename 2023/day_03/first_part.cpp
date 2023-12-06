@@ -62,6 +62,6 @@ int solve() {
 
 
 int gearRatios::firstPart() {
-    return utils::solve(solve, input_string);
+    return utils::solve(solve, input_file);
 }
 

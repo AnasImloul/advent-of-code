@@ -35,5 +35,5 @@ int solve() {
 
 
 int trebuchet::firstPart() {
-    return utils::solve<int>(solve, input_string);
+    return utils::solve<int>(solve, input_file);
 }

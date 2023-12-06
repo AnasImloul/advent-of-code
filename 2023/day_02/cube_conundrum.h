@@ -10,7 +10,7 @@
 
 
 namespace cubeConundrum {
-    inline static std::string input_string = "../2023/day_02/in.txt";
+    inline static std::string input_file = "../2023/day_02/in.txt";
     int firstPart();
     int secondPart();
     namespace {

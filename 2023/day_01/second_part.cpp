@@ -66,5 +66,5 @@ int solve() {
 
 
 int trebuchet::secondPart() {
-    return utils::solve(solve, input_string);
+    return utils::solve(solve, input_file);
 }

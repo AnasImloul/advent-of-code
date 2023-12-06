@@ -21,5 +21,5 @@ int solve() {
 
 
 int cubeConundrum::firstPart() {
-    return utils::solve(solve, input_string);
+    return utils::solve(solve, input_file);
 }
