@@ -1,8 +1,8 @@
 #include <iostream>
-#include "2023/day_05/fertilizer.h"
+#include "2023/day_06/wait-for-it.h"
 
 
 int main() {
-    std::cout << fertilizer::secondPart() << std::endl;
+    std::cout << waitForIt::secondPart() << std::endl;
     return 0;
 }
