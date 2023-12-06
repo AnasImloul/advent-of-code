@@ -69,11 +69,15 @@ namespace utils {
     std::vector<std::string> readLines() {
         std::vector<std::string> lines;
         while (!std::cin.eof()) {
-            std::string line;
-            std::getline(std::cin, line);
-            lines.push_back(line);
+            lines.push_back(readLine());
         }
         return lines;
+    }
+
+    std::string readLine() {
+        std::string line;
+        std::getline(std::cin, line);
+        return line;
     }
 
     inline bool isOutOfBounds(int i, int j, int n, int m) {

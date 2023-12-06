@@ -19,6 +19,8 @@ namespace utils {
 
     std::vector<std::string> readLines();
 
+    std::string readLine();
+
     bool isOutOfBounds(int i, int j, int n, int m);
 
     int nextInt(const std::string& str, int& i);
