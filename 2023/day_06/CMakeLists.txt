@@ -1,5 +1,5 @@
 set(WAIT_FOR_IT
-        wait-for-it.h
+        wait_for_it.h
         first_part.cpp
         second_part.cpp
 )

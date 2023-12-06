@@ -3,7 +3,7 @@
 //
 #include <iostream>
 #include <vector>
-#include "wait-for-it.h"
+#include "wait_for_it.h"
 #include <cstdint>
 
 using namespace waitForIt;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "2023/day_06/wait-for-it.h"
+#include "2023/day_06/wait_for_it.h"
 
 
 int main() {
