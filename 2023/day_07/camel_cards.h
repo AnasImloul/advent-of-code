@@ -17,7 +17,8 @@ namespace camelCards {
     int secondPart();
 
     namespace {
-        using SortingAlgorithm = void (std::vector<std::pair<std::string, int>>& hands);
+        using BiddingHand = std::pair<std::string, int>;
+        using SortingAlgorithm = void (std::vector<BiddingHand>& hands);
 
         int cardToNumber(const char &c, const std::string& cards) {
             for (int i = 0; i < cards.size(); i++) {
@@ -38,34 +39,26 @@ namespace camelCards {
         int getHandType(const std::string &hand) {
             static int count[256];
             memset(count, 0, sizeof(count));
-            for (const char& card: hand) {
-                count[card]++;
-            }
+            for (const char& card: hand) count[card]++;
 
             static int repeated[6];
             memset(repeated, 0, sizeof(repeated));
 
-            for (int& c: count) {
-                repeated[c]++;
-            }
+            for (int& c: count) repeated[c]++;
 
-            int score;
-
-            if (repeated[5] == 1) score = 6;
-            else if (repeated[4] == 1) score = 5;
-            else if (repeated[3] == 1 && repeated[2] == 1) score = 4;
-            else if (repeated[3] == 1 && repeated[2] == 0) score = 3;
-            else if (repeated[2] == 2) score = 2;
-            else if (repeated[2] == 1) score = 1;
-            else score = 0;
-
-            return score;
+            if (repeated[5] == 1) return 6;
+            if (repeated[4] == 1) return 5;
+            if (repeated[3] == 1 && repeated[2] == 1) return 4;
+            if (repeated[3] == 1 && repeated[2] == 0) return 3;
+            if (repeated[2] == 2) return 2;
+            if (repeated[2] == 1) return 1;
+            else return 0;
         }
 
         int solve(SortingAlgorithm sortingAlgorithm) {
             std::vector<std::string> lines = utils::readLines();
 
-            std::vector<std::pair<std::string, int>> hands;
+            std::vector<BiddingHand> hands;
 
             for (std::string& line : lines) {
                 std::string hand = line.substr(0, 5);
