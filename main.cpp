@@ -1,8 +1,8 @@
 #include <iostream>
-#include "2023/day_07/camel_cards.h"
+#include "2023/day_01/trebuchet.h"
 
 
 int main() {
-    std::cout << camelCards::secondPart() << std::endl;
+    std::cout << trebuchet::secondPart() << std::endl;
     return 0;
 }
