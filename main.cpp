@@ -1,8 +1,8 @@
 #include <iostream>
-#include "2023/day_01/trebuchet.h"
+#include "2023/day_03/gear_ratios.h"
 
 
 int main() {
-    std::cout << trebuchet::secondPart() << std::endl;
+    std::cout << gearRatios::firstPart() << std::endl;
     return 0;
 }

@@ -76,7 +76,7 @@ namespace utils {
         return line;
     }
 
-    inline bool isOutOfBounds(int i, int j, int n, int m) {
+    bool isOutOfBounds(int i, int j, int n, int m) {
         return i < 0 | i >= n | j < 0 | j >= m;
     }
 
@@ -85,15 +85,6 @@ namespace utils {
         T answer = 0;
         for (auto &e: arr) answer += e;
         return answer;
-    }
-
-    template <class T1, class T2>
-    size_t hash_pair<T1, T2>::operator()(const std::pair<T1, T2>& p) const {
-        auto hash1 = std::hash<T1>{}(p.first);
-        auto hash2 = std::hash<T2>{}(p.second);
-
-        if (hash1 != hash2) return hash1 ^ hash2;
-        return hash1;
     }
 
     template<typename T>
@@ -117,4 +108,5 @@ namespace utils {
 
     template int solve<int>(Solver<int> solve, const std::string& input_file);
     template ll solve<ll>(Solver<ll> solve, const std::string& input_file);
+
 }
