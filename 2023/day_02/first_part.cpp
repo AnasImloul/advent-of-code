@@ -1,8 +1,3 @@
-//
-// Created by user on 02/12/2023.
-//
-
-
 #include <iostream>
 #include "cube_conundrum.h"
 

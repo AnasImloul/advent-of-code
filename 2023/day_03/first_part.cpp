@@ -1,9 +1,3 @@
-//
-// Created by user on 03/12/2023.
-//
-
-
-
 #include <iostream>
 #include <vector>
 #include "gear_ratios.h"
@@ -56,7 +50,6 @@ int solve() {
 
         }
     }
-
     return answer;
 }
 

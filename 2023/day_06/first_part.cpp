@@ -1,10 +1,6 @@
-//
-// Created by user on 03/12/2023.
-//
 #include <iostream>
 #include <vector>
 #include "wait_for_it.h"
-#include <cstdint>
 
 using namespace waitForIt;
 
