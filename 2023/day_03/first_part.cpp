@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "gear_ratios.h"
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 using namespace gearRatios;
 

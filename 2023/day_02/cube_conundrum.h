@@ -2,7 +2,7 @@
 
 #include <array>
 #include <fstream>
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 
 namespace cubeConundrum {

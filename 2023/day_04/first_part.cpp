@@ -14,4 +14,3 @@ int solver() {
 int scratchcards::firstPart() {
     return utils::solve(solver, input_file);
 }
-

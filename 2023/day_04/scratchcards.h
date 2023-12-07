@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <cstring>
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 
 namespace scratchcards {

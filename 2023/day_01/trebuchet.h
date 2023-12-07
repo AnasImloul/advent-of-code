@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 namespace trebuchet {
     inline static std::string input_file = "../2023/day_01/in.txt";

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 
 namespace gearRatios {
@@ -61,6 +61,5 @@ namespace gearRatios {
         inline bool isSpecialChar(char c) {
             return !isdigit(c) && c != '.';
         }
-
     }
 }

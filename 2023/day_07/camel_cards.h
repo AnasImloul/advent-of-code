@@ -7,7 +7,7 @@
 #include <map>
 #include <cstdint>
 #include <array>
-#include "../../utils.h"
+#include "../../utils/utils.h"
 
 
 namespace camelCards {
