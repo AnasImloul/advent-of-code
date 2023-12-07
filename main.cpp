@@ -1,8 +1,8 @@
 #include <iostream>
-#include "2023/day_06/wait_for_it.h"
+#include "2023/day_07/camel_cards.h"
 
 
 int main() {
-    std::cout << waitForIt::secondPart() << std::endl;
+    std::cout << camelCards::secondPart() << std::endl;
     return 0;
 }
