@@ -16,6 +16,7 @@ namespace fertilizer {
     ll secondPart();
     namespace {
         using Transformer = std::map<std::pair<ll, ll>, std::pair<ll, ll>>;
+        using SeedProcessor = ll(std::vector<ll>&, std::vector<Transformer>&);
 
         Transformer parseTransformer(std::vector<std::string>& lines, int& i) {
             while (lines[i].empty() || !isdigit(lines[i][0])) {
@@ -88,6 +89,21 @@ namespace fertilizer {
             }
 
             return result;
+        }
+
+        ll solve(SeedProcessor processSeeds) {
+            std::vector<std::string> lines = utils::readLines();
+            int i = 0;
+
+            std::vector<ll> seeds = utils::parseLongs(lines[i++]);
+
+            std::vector<Transformer> transformers(7);
+
+            for (int t = 0; t < 7; t++) {
+                transformers[t] = parseTransformer(lines, i);
+            }
+
+            return processSeeds(seeds, transformers);
         }
     }
 }
