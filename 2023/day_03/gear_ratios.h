@@ -38,7 +38,6 @@ namespace gearRatios {
                     int number = 0;
                     while (j < m && isdigit(lines[i][j])) {
                         checkForSpecialCharacter(i - 1, j, marked, lines);
-                        checkForSpecialCharacter(i, j, marked, lines);
                         checkForSpecialCharacter(i + 1, j, marked, lines);
 
                         number = number * 10 + (lines[i][j] - '0');
