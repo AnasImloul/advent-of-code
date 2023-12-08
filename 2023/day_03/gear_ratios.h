@@ -5,7 +5,6 @@
 #include <vector>
 #include "../../utils/utils.h"
 
-
 namespace gearRatios {
     inline static std::string input_file = "../2023/day_03/in.txt";
     int firstPart();
@@ -15,7 +14,6 @@ namespace gearRatios {
         using Setup = void();
         using Update = void(int, int&);
         using Finalize = void(int&);
-
 
         int solve(SpecialCharacterChecker checkForSpecialCharacter, Setup setup, Update update, Finalize finalize) {
             int answer = 0;
@@ -51,14 +49,10 @@ namespace gearRatios {
                     if (marked) update(number, answer);
                 }
             }
-
             finalize(answer);
-
             return answer;
         }
 
-        inline bool isSpecialChar(char c) {
-            return !isdigit(c) && c != '.';
-        }
+        inline bool isSpecialChar(char c) { return !isdigit(c) && c != '.'; }
     }
 }

@@ -5,7 +5,6 @@
 
 using namespace gearRatios;
 
-
 void checkForSpecialCharacter(
         int i, int j, bool& marked,
         std::vector<std::string>& lines) {

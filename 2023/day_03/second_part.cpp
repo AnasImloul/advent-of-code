@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include "gear_ratios.h"
 
-
 using namespace gearRatios;
 
 static std::vector<std::pair<int, int>> currentGears;
@@ -36,9 +35,8 @@ void update(int number, int& answer) {
 
 void finalize(int& answer) {
     for (auto gear: gears) {
-        if (gear.second.first != -1 && gear.second.second != -1) {
+        if (gear.second.first != -1 && gear.second.second != -1)
             answer += gear.second.first * gear.second.second;
-        }
     }
 }
 
@@ -46,9 +44,6 @@ int solver() {
     return solve(checkForSpecialCharacter, setup, update, finalize);
 }
 
-
 int gearRatios::secondPart() {
     return utils::solve(solver, input_file);
 }
-
-
