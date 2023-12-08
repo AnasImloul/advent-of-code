@@ -11,6 +11,28 @@ namespace utils {
         }
     }
 
+    std::string readUntil(const std::string &str, int &i, Condition<char> *condition) {
+        int j = i;
+        while (i < str.size() && !condition(str[i])) {
+            i++;
+        }
+        return str.substr(j, i - j);
+    }
+
+    void skipWhile(const std::string &str, int &i, Condition<char> *condition) {
+        while (i < str.size() && condition(str[i])) {
+            i++;
+        }
+    }
+
+    std::string readWhile(const std::string &str, int &i, Condition<char> *condition) {
+        int j = i;
+        while (i < str.size() && condition(str[i])) {
+            i++;
+        }
+        return str.substr(j, i - j);
+    }
+
     int nextInt(const std::string &str, int &i) {
         int number = 0;
         while (i < str.size() && isdigit(str[i])) {

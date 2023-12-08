@@ -9,8 +9,22 @@ namespace utils {
     template <typename T>
     using Condition = bool(T);
 
+    static auto isalpha = [](char c) { return (bool) std::isalpha(c); };
+    static auto isdigit = [](char c) { return (bool) std::isdigit(c); };
+    static auto isspace = [](char c) { return c == ' '; };
+    static auto isalnum = [](char c) { return isalpha(c) || isdigit(c); };
+
     // a function to skip indices in a string until a condition is met
     void skipUntil(const std::string& str, int& i, Condition<char> condition);
+
+    // a function to read indices from a string until a condition is met
+    std::string readUntil(const std::string& str, int& i, Condition<char> condition);
+
+    // a function to skip indices in a string while a condition is met
+    void skipWhile(const std::string& str, int& i, Condition<char> condition);
+
+    // a function to read indices from a string while a condition is met
+    std::string readWhile(const std::string& str, int& i, Condition<char> condition);
 
     std::vector<std::string> readLines();
 

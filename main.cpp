@@ -1,8 +1,11 @@
 #include <iostream>
-#include "2023/day_05/fertilizer.h"
+
+#pragma optimize GCC "O7"
+
+#include "2023/day_08/haunted_wasteland.h"
 
 
 int main() {
-    std::cout << fertilizer::secondPart() << std::endl;
+    std::cout << hauntedWasteland::firstPart() << std::endl;
     return 0;
 }
