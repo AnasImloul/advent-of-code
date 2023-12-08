@@ -122,6 +122,12 @@ namespace utils {
         return answer;
     }
 
+    int64_t time() {
+        using namespace std::chrono;
+        return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+    }
+
+
     template int sum(const std::vector<int> &arr);
     template ll sum(const std::vector<ll> &arr);
 

@@ -63,4 +63,6 @@ namespace utils {
 
     template <typename T>
     T solve(Solver<T> solver,const std::string& input_file);
+
+    int64_t time();
 }
