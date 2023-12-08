@@ -1,8 +1,9 @@
+#include <numeric>
 #include "haunted_wasteland.h"
 
 using namespace hauntedWasteland;
 
-std::vector<std::string> extractStartingNodes(Network& network) {
+std::vector<std::string> getStartingNodes(Network& network) {
     std::vector<std::string> nodes;
     for (auto& node: network) {
         if (node.first.back() == 'A') {
@@ -13,7 +14,12 @@ std::vector<std::string> extractStartingNodes(Network& network) {
 }
 
 ll solver() {
-    return hauntedWasteland::solve(extractStartingNodes);
+    auto [network, instructions] = readInput();
+    ll answer = 1;
+    for (std::string& node: getStartingNodes(network)) {
+        answer = std::lcm(answer, distance(node, network, instructions));
+    }
+    return answer;
 }
 
 ll hauntedWasteland::secondPart() {

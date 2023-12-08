@@ -7,7 +7,6 @@
 #include <unordered_map>
 #include <cstdint>
 #include <array>
-#include <numeric>
 #include "../../utils/utils.h"
 
 
@@ -19,7 +18,6 @@ namespace hauntedWasteland {
 
     namespace {
         using Network = std::unordered_map<std::string, std::pair<std::string, std::string>>;
-        using StartingNodesExtractor = std::vector<std::string>(Network&);
 
         std::array<std::string, 3> parseNode(std::string& line) {
             std::array<std::string, 3> result;
@@ -31,7 +29,20 @@ namespace hauntedWasteland {
             return result;
         }
 
-        ll solve(StartingNodesExtractor extractStartingNodes) {
+        ll distance(std::string& node, Network& network, std::string& instructions) {
+            ll distance = 0;
+            while (node.back() != 'Z') {
+                if (instructions[distance % instructions.size()] == 'L') {
+                    node = network[node].first;
+                } else {
+                    node = network[node].second;
+                }
+                distance++;
+            }
+            return distance;
+        }
+
+        std::pair<Network, std::string> readInput() {
             std::string instructions = utils::readLine();
             utils::readLine();
 
@@ -42,23 +53,7 @@ namespace hauntedWasteland {
                 network[node] = {left, right};
             }
 
-            std::vector<std::string> nodes = extractStartingNodes(network);
-
-            ll answer = 1;
-            for (auto& node : nodes) {
-                std::string current = node;
-                ll step = 0;
-                do {
-                    if (instructions[step % instructions.size()] == 'L') {
-                        current = network[current].first;
-                    } else {
-                        current = network[current].second;
-                    }
-                    step++;
-                } while (current.back() != 'Z');
-                answer = std::lcm(answer, step);
-            }
-            return answer;
+            return {network, instructions};
         }
     }
 }

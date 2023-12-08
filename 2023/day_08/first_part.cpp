@@ -1,14 +1,11 @@
 #include "haunted_wasteland.h"
 
-
 using namespace hauntedWasteland;
 
-std::vector<std::string> extractStartingNodes(Network& network) {
-    return {"AAA"};
-}
-
 ll solver() {
-    return hauntedWasteland::solve(extractStartingNodes);
+    auto [network, instructions] = readInput();
+    std::string node = "AAA";
+    return distance(node, network, instructions);
 }
 
 ll hauntedWasteland::firstPart() {
