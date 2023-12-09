@@ -35,21 +35,35 @@ namespace utils {
     }
 
     int nextInt(const std::string &str, int &i) {
+        int sign = 1;
+        if (str[i] == '-') {
+            sign = -1;
+            i++;
+        } else if (str[i] == '+') {
+            i++;
+        }
         int number = 0;
         while (i < str.size() && isdigit(str[i])) {
             number = number * 10 + (str[i] - '0');
             i++;
         }
-        return number;
+        return sign * number;
     }
 
     long long nextLong(const std::string &str, int &i) {
+        int sign = 1;
+        if (str[i] == '-') {
+            sign = -1;
+            i++;
+        } else if (str[i] == '+') {
+            i++;
+        }
         long long number = 0;
         while (i < str.size() && isdigit(str[i])) {
             number = number * 10 + (str[i] - '0');
             i++;
         }
-        return number;
+        return sign * number;
     }
 
     std::vector<int> parseIntegers(std::string &line) {
@@ -57,7 +71,7 @@ namespace utils {
 
         int i = 0;
         while (i < line.size()) {
-            skipUntil(line, i, [](char c) { return (bool) isdigit(c); });
+            skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             int number = nextInt(line, i);
             numbers.push_back(number);
         }
@@ -69,7 +83,7 @@ namespace utils {
 
         int i = 0;
         while (i < line.size()) {
-            skipUntil(line, i, [](char c) { return (bool) isdigit(c); });
+            skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             long long number = nextLong(line, i);
             numbers.push_back(number);
         }
@@ -97,6 +111,16 @@ namespace utils {
 
     int64_t currentTimeMillis() {
         using namespace std::chrono;
-        return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+        return duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count();
+    }
+
+    int64_t currentTimeMicros() {
+        using namespace std::chrono;
+        return duration_cast<microseconds>(high_resolution_clock::now().time_since_epoch()).count();
+    }
+
+    int64_t currentTimeNanos() {
+        using namespace std::chrono;
+        return duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch()).count();
     }
 }
