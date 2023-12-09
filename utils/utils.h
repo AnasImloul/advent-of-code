@@ -43,6 +43,10 @@ namespace utils {
 
     int64_t currentTimeMillis();
 
+    int64_t currentTimeMicros();
+
+    int64_t currentTimeNanos();
+
     template<typename T>
     void show(std::vector<T> arr) {
         for (T e: arr) {
