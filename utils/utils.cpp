@@ -77,14 +77,6 @@ namespace utils {
         return numbers;
     }
 
-    template<typename T>
-    void show(std::vector<T> arr) {
-        for (T e: arr) {
-            std::cout << e << " ";
-        }
-        std::cout << std::endl;
-    }
-
     std::vector<std::string> readLines() {
         std::vector<std::string> lines;
         while (!std::cin.eof()) {
@@ -103,39 +95,8 @@ namespace utils {
         return i < 0 | i >= n | j < 0 | j >= m;
     }
 
-    template<typename T>
-    T sum(const std::vector<T> &arr) {
-        T answer = 0;
-        for (auto &e: arr) answer += e;
-        return answer;
-    }
-
-    template<typename T>
-    T solve(Solver<T> solver, const std::string &input_file) {
-        std::streambuf *oldCin = std::cin.rdbuf();
-        std::ifstream in(input_file);
-        std::cin.rdbuf(in.rdbuf());
-
-        T answer = solver();
-
-        std::cin.rdbuf(oldCin);
-        return answer;
-    }
-
     int64_t time() {
         using namespace std::chrono;
         return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
     }
-
-
-    template int sum(const std::vector<int> &arr);
-    template ll sum(const std::vector<ll> &arr);
-
-    template void show(std::vector<ll> arr);
-    template void show(std::vector<int> arr);
-    template void show(std::vector<std::string> arr);
-
-    template int solve<int>(Solver<int> solve, const std::string& input_file);
-    template ll solve<ll>(Solver<ll> solve, const std::string& input_file);
-
 }

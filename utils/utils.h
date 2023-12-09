@@ -41,11 +41,22 @@ namespace utils {
 
     std::vector<ll> parseLongs(std::string& line);
 
-    template <typename T>
-    void show(std::vector<T> arr);
+    int64_t time();
 
-    template <typename T>
-    T sum(const std::vector<T>& arr);
+    template<typename T>
+    void show(std::vector<T> arr) {
+        for (T e: arr) {
+            std::cout << e << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    template<typename T>
+    T sum(const std::vector<T> &arr) {
+        T answer = 0;
+        for (auto &e: arr) answer += e;
+        return answer;
+    }
 
     template <class T1, class T2>
     struct hash_pair {
@@ -61,8 +72,16 @@ namespace utils {
     template <typename T>
     using Solver = T();
 
-    template <typename T>
-    T solve(Solver<T> solver,const std::string& input_file);
+    template<typename T>
+    T solve(Solver<T> solver, const std::string &input_file) {
+        std::streambuf *oldCin = std::cin.rdbuf();
+        std::ifstream in(input_file);
+        std::cin.rdbuf(in.rdbuf());
 
-    int64_t time();
+        T answer = solver();
+
+        std::cin.rdbuf(oldCin);
+        return answer;
+    }
+
 }
