@@ -41,7 +41,7 @@ namespace utils {
 
     std::vector<ll> parseLongs(std::string& line);
 
-    int64_t time();
+    int64_t currentTimeMillis();
 
     template<typename T>
     void show(std::vector<T> arr) {

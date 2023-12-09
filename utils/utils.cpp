@@ -95,7 +95,7 @@ namespace utils {
         return i < 0 | i >= n | j < 0 | j >= m;
     }
 
-    int64_t time() {
+    int64_t currentTimeMillis() {
         using namespace std::chrono;
         return duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
     }
