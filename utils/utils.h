@@ -45,7 +45,7 @@ namespace utils {
 
     std::vector<std::pair<int ,int>> reducePolygon(const std::vector<std::pair<int, int>>& polygon);
 
-    bool isPointInsidePolygon(int x, int y, const std::vector<std::pair<int, int>>& polygon);
+    bool isPointInsidePolygon(std::pair<int, int> point, const std::vector<std::pair<int, int>>& polygon);
 
     int64_t currentTimeMillis();
 

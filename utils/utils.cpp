@@ -131,10 +131,10 @@ namespace utils {
         return reduced;
     }
 
-    bool isPointInsidePolygon(int x, int y, const std::vector<std::pair<int, int>>& polygon) {
+    bool isPointInsidePolygon(std::pair<int, int> point, const std::vector<std::pair<int, int>>& polygon) {
         int n = polygon.size();
         int count = 0;
-
+        auto [x, y] = point;
         for (int i = 0; i < n; ++i) {
             int x1 = polygon[i].first;
             int y1 = polygon[i].second;
@@ -147,7 +147,6 @@ namespace utils {
                 }
             }
         }
-
         return count % 2 == 1;
     }
 

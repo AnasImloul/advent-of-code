@@ -27,7 +27,7 @@ int dfs(std::pair<int, int> current, std::vector<std::string>& maze) {
         answer++;
         for (auto& [dy, dx] : directions) {
             std::pair<int, int> neighbor = {pos.first + dy, pos.second + dx};
-            if (isOutOfBounds(neighbor.first, neighbor.second, maze)) continue;
+            if (isOutOfBounds(neighbor, maze)) continue;
             if (visited[neighbor.first][neighbor.second]) continue;
             stack.push(neighbor);
         }
@@ -56,8 +56,9 @@ int solver() {
     for (int y = 0; y < maze.size(); y++) {
         for (int x = 0; x < maze[y].size(); x++) {
             if (!visited[y][x]) {
-                int size = dfs({y, x}, maze);
-                if (utils::isPointInsidePolygon(y, x, polygon)) {
+                std::pair<int, int> point = {y, x};
+                int size = dfs(point, maze);
+                if (utils::isPointInsidePolygon(point, polygon)) {
                     answer += size;
                 }
             }
