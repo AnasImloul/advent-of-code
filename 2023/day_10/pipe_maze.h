@@ -14,7 +14,7 @@
 
 namespace pipeMaze {
     using NeighborsMap = std::unordered_map<char, std::vector<std::pair<int, int>>>;
-    using Graph = std::unordered_map<std::pair<int, int>, std::vector<std::pair<int, int>>, utils::hash_pair<int, int>>;
+    using Graph = std::vector<std::vector<std::vector<std::pair<int, int>>>>;
 
     inline static std::string input_file = "../2023/day_10/in.txt";
 
@@ -58,8 +58,7 @@ namespace pipeMaze {
         }
 
         Graph buildGraph(std::vector<std::string>& maze) {
-            Graph graph;
-            graph.reserve(maze.size() * maze[0].size());
+            Graph graph(maze.size(), std::vector<std::vector<std::pair<int, int>>>(maze[0].size()));
 
             for (int i = 0; i < maze.size(); i++) {
                 for (int j = 0; j < maze[i].size(); j++) {
@@ -67,7 +66,7 @@ namespace pipeMaze {
                     for (auto& [dy, dx]: neighborsMap.at(maze[i][j])) {
                         std::pair<int, int> neighbor = {i + dy, j + dx};
                         if (!isOutOfBounds(neighbor.first, neighbor.second, maze)) {
-                            graph[{i, j}].emplace_back(neighbor);
+                            graph[i][j].emplace_back(neighbor);
                         }
                     }
                 }
@@ -76,11 +75,11 @@ namespace pipeMaze {
         }
 
         bool areConnected(std::pair<int, int> current, std::pair<int, int> neighbor, Graph& maze) {
-            if (maze.find(current) == maze.end()) return false;
-            if (maze.find(neighbor) == maze.end()) return false;
+            auto currentNeighbors = maze[current.first][current.second];
+            auto neighborNeighbors = maze[neighbor.first][neighbor.second];
 
-            if (std::find(maze[current].begin(), maze[current].end(), neighbor) == maze[current].end()) return false;
-            if (std::find(maze[neighbor].begin(), maze[neighbor].end(), current) == maze[neighbor].end()) return false;
+            if (std::find(currentNeighbors.begin(), currentNeighbors.end(), neighbor) == currentNeighbors.end()) return false;
+            if (std::find(neighborNeighbors.begin(), neighborNeighbors.end(), current) == neighborNeighbors.end()) return false;
 
             return true;
         }
@@ -94,10 +93,10 @@ namespace pipeMaze {
                 auto [y, x] = current;
                 visited.insert(current);
                 loop.emplace_back(current);
-                if (maze.find(current) == maze.end()) return {};
+                if (maze[current.first][current.second].empty()) return {};
 
                 bool stuck = true, found = false;
-                for (auto& neighbor : maze[current]) {
+                for (auto& neighbor : maze[current.first][current.second]) {
                     if (neighbor == start) found = true;
                     if (visited.find(neighbor) == visited.end()) {
                         current = neighbor;
@@ -115,11 +114,11 @@ namespace pipeMaze {
         std::vector<std::pair<int, int>> solveLoopElements(std::pair<int ,int> start, std::vector<std::string>& maze) {
             Graph graph = buildGraph(maze);
             for (auto& c: chars) {
-                graph[start].clear();
+                graph[start.first][start.second].clear();
                 for (auto& [dy, dx] : neighborsMap.at(c)) {
                     std::pair<int, int> neighbor = {start.first + dy, start.second + dx};
                     if (!isOutOfBounds(neighbor.first, neighbor.second, maze)) {
-                        graph[start].emplace_back(neighbor);
+                        graph[start.first][start.second].emplace_back(neighbor);
                     }
                 }
                 std::vector<std::pair<int, int>> loop = getLoopElements(start, graph);

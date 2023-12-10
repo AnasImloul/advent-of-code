@@ -7,19 +7,12 @@ using namespace pipeMaze;
 #include <iostream>
 #include <vector>
 
-
 int solver() {
     std::vector<std::string> maze = utils::readLines();
 
     std::pair<int, int> pos = pipeMaze::getStartingPoint(maze);
 
     std::vector<std::pair<int, int>> loop_elements = solveLoopElements(pos, maze);
-
-    visited.clear();
-
-    for (auto &p: loop_elements) {
-        visited.insert(p);
-    }
 
     int answer = 0;
 
