@@ -6,7 +6,7 @@
 int main() {
     int64_t start = utils::currentTimeMillis();
 
-    std::cout << pipeMaze::secondPart() << std::endl;
+    std::cout << pipeMaze::firstPart() << std::endl;
     std::cout << "Time: " << utils::currentTimeMillis() - start << " ms" << std::endl;
     return 0;
 }

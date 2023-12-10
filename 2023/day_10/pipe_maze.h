@@ -14,7 +14,6 @@
 
 namespace pipeMaze {
     using NeighborsMap = std::unordered_map<char, std::vector<std::pair<int, int>>>;
-    using Graph = std::vector<std::vector<std::vector<std::pair<int, int>>>>;
 
     inline static std::string input_file = "../2023/day_10/in.txt";
 
@@ -57,46 +56,22 @@ namespace pipeMaze {
             return y < 0 || y >= maze.size() || x < 0 || x >= maze[x].size();
         }
 
-        Graph buildGraph(std::vector<std::string>& maze) {
-            Graph graph(maze.size(), std::vector<std::vector<std::pair<int, int>>>(maze[0].size()));
 
-            for (int i = 0; i < maze.size(); i++) {
-                for (int j = 0; j < maze[i].size(); j++) {
-                    if (neighborsMap.find(maze[i][j]) == neighborsMap.end()) continue;
-                    for (auto& [dy, dx]: neighborsMap.at(maze[i][j])) {
-                        std::pair<int, int> neighbor = {i + dy, j + dx};
-                        if (!isOutOfBounds(neighbor.first, neighbor.second, maze)) {
-                            graph[i][j].emplace_back(neighbor);
-                        }
-                    }
-                }
-            }
-            return graph;
-        }
-
-        bool areConnected(std::pair<int, int> current, std::pair<int, int> neighbor, Graph& maze) {
-            auto currentNeighbors = maze[current.first][current.second];
-            auto neighborNeighbors = maze[neighbor.first][neighbor.second];
-
-            if (std::find(currentNeighbors.begin(), currentNeighbors.end(), neighbor) == currentNeighbors.end()) return false;
-            if (std::find(neighborNeighbors.begin(), neighborNeighbors.end(), current) == neighborNeighbors.end()) return false;
-
-            return true;
-        }
-
-        std::vector<std::pair<int, int>> getLoopElements(std::pair<int, int> start, Graph& maze) {
-            std::vector<std::pair<int, int>> loop;
-            std::pair<int, int> current = start;
+        std::vector<std::pair<int, int>> getLoopElements(std::pair<int, int> current, std::pair<int, int> start, std::vector<std::string>& maze) {
+            std::vector<std::pair<int, int>> loop(1, start);
             visited.clear();
+
+            visited.insert(start);
 
             do {
                 auto [y, x] = current;
                 visited.insert(current);
                 loop.emplace_back(current);
-                if (maze[current.first][current.second].empty()) return {};
+                if (neighborsMap.find(maze[y][x]) == neighborsMap.end()) return {};
 
                 bool stuck = true, found = false;
-                for (auto& neighbor : maze[current.first][current.second]) {
+                for (auto& [dy, dx] : neighborsMap.at(maze[y][x])) {
+                    std::pair<int, int> neighbor = {y + dy, x + dx};
                     if (neighbor == start) found = true;
                     if (visited.find(neighbor) == visited.end()) {
                         current = neighbor;
@@ -105,23 +80,16 @@ namespace pipeMaze {
                     }
                 }
                 if (stuck) {
-                    if (found && areConnected(start, current, maze)) return loop;
+                    if (found) return loop;
                     else return {};
                 }
             } while (true);
         }
 
         std::vector<std::pair<int, int>> solveLoopElements(std::pair<int ,int> start, std::vector<std::string>& maze) {
-            Graph graph = buildGraph(maze);
-            for (auto& c: chars) {
-                graph[start.first][start.second].clear();
-                for (auto& [dy, dx] : neighborsMap.at(c)) {
-                    std::pair<int, int> neighbor = {start.first + dy, start.second + dx};
-                    if (!isOutOfBounds(neighbor.first, neighbor.second, maze)) {
-                        graph[start.first][start.second].emplace_back(neighbor);
-                    }
-                }
-                std::vector<std::pair<int, int>> loop = getLoopElements(start, graph);
+            for (auto& [dy, dx]: directions) {
+                auto [y, x] = start;
+                std::vector<std::pair<int, int>> loop = getLoopElements({y + dy, x + dx}, start, maze);
                 if (!loop.empty()) return loop;
             }
             return {};
