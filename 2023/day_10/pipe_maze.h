@@ -19,7 +19,7 @@ namespace pipeMaze {
 
     inline static std::string chars = "-|LJ7F";
 
-    static std::unordered_set<std::pair<int, int>, utils::hash_pair<int, int>> visited;
+    static std::vector<std::vector<bool>> visited;
 
     static const NeighborsMap neighborsMap = {
             {'-', {{0, -1}, {0, 1}}},
@@ -41,6 +41,10 @@ namespace pipeMaze {
     int secondPart();
 
     namespace {
+        void setup(std::vector<std::string>& maze) {
+            visited = std::vector<std::vector<bool>>(maze.size(), std::vector<bool>(maze[0].size(), false));
+        }
+
         std::pair<int, int> getStartingPoint(std::vector<std::string>& lines) {
             for (int i = 0; i < lines.size(); i++) {
                 for (int j = 0; j < lines[i].size(); j++) {
@@ -59,13 +63,9 @@ namespace pipeMaze {
 
         std::vector<std::pair<int, int>> getLoopElements(std::pair<int, int> current, std::pair<int, int> start, std::vector<std::string>& maze) {
             std::vector<std::pair<int, int>> loop(1, start);
-            visited.clear();
-
-            visited.insert(start);
-
             do {
                 auto [y, x] = current;
-                visited.insert(current);
+                visited[y][x] = true;
                 loop.emplace_back(current);
                 if (neighborsMap.find(maze[y][x]) == neighborsMap.end()) return {};
 
@@ -73,11 +73,10 @@ namespace pipeMaze {
                 for (auto& [dy, dx] : neighborsMap.at(maze[y][x])) {
                     std::pair<int, int> neighbor = {y + dy, x + dx};
                     if (neighbor == start) found = true;
-                    if (visited.find(neighbor) == visited.end()) {
-                        current = neighbor;
-                        stuck = false;
-                        break;
-                    }
+                    if (visited[neighbor.first][neighbor.second]) continue;
+                    current = neighbor;
+                    stuck = false;
+                    break;
                 }
                 if (stuck) {
                     if (found) return loop;
@@ -89,6 +88,7 @@ namespace pipeMaze {
         std::vector<std::pair<int, int>> solveLoopElements(std::pair<int ,int> start, std::vector<std::string>& maze) {
             for (auto& [dy, dx]: directions) {
                 auto [y, x] = start;
+                visited[y][x] = true;
                 std::vector<std::pair<int, int>> loop = getLoopElements({y + dy, x + dx}, start, maze);
                 if (!loop.empty()) return loop;
             }
