@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <algorithm>
 #include "utils.h"
 
 
@@ -107,6 +108,47 @@ namespace utils {
 
     bool isOutOfBounds(int i, int j, int n, int m) {
         return i < 0 | i >= n | j < 0 | j >= m;
+    }
+
+    bool areParallel(const std::pair<int, int>& a, const std::pair<int, int>& b, const std::pair<int, int>& c) {
+        return (b.first - a.first) * (c.second - a.second) == (c.first - a.first) * (b.second - a.second);
+    }
+
+    std::vector<std::pair<int ,int>> reducePolygon(const std::vector<std::pair<int, int>>& polygon) {
+        if (polygon.size() < 3) return polygon;
+
+        std::vector<std::pair<int, int>> reduced;
+        reduced.push_back(polygon[0]);
+        reduced.push_back(polygon[1]);
+
+        for (int i = 2; i < polygon.size(); i++) {
+            if (areParallel(polygon[i], reduced[reduced.size() - 2], reduced[reduced.size() - 1])) {
+                reduced.pop_back();
+            }
+            reduced.push_back(polygon[i]);
+        }
+
+        return reduced;
+    }
+
+    bool isPointInsidePolygon(int x, int y, const std::vector<std::pair<int, int>>& polygon) {
+        int n = polygon.size();
+        int count = 0;
+
+        for (int i = 0; i < n; ++i) {
+            int x1 = polygon[i].first;
+            int y1 = polygon[i].second;
+            int x2 = polygon[(i + 1) % n].first;
+            int y2 = polygon[(i + 1) % n].second;
+
+            if ((y1 <= y && y < y2) || (y2 <= y && y < y1)) {
+                if (x1 + (y - y1) / static_cast<double>(y2 - y1) * (x2 - x1) < x) {
+                    count++;
+                }
+            }
+        }
+
+        return count % 2 == 1;
     }
 
     int64_t currentTimeMillis() {

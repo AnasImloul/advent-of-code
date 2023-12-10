@@ -41,6 +41,12 @@ namespace utils {
 
     std::vector<ll> parseLongs(std::string& line);
 
+    bool areParallel(const std::pair<int, int>& a, const std::pair<int, int>& b, const std::pair<int, int>& c);
+
+    std::vector<std::pair<int ,int>> reducePolygon(const std::vector<std::pair<int, int>>& polygon);
+
+    bool isPointInsidePolygon(int x, int y, const std::vector<std::pair<int, int>>& polygon);
+
     int64_t currentTimeMillis();
 
     int64_t currentTimeMicros();
@@ -87,5 +93,4 @@ namespace utils {
         std::cin.rdbuf(oldCin);
         return answer;
     }
-
 }
