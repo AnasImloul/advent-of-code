@@ -11,6 +11,7 @@ add_subdirectory(day_07)
 add_subdirectory(day_08)
 add_subdirectory(day_09)
 add_subdirectory(day_10)
+add_subdirectory(day_11)
 
 
 target_link_libraries(2023 INTERFACE trebuchet)
@@ -23,3 +24,4 @@ target_link_libraries(2023 INTERFACE camel_cards)
 target_link_libraries(2023 INTERFACE haunted_wasteland)
 target_link_libraries(2023 INTERFACE mirage_maintenance)
 target_link_libraries(2023 INTERFACE pipe_maze)
+target_link_libraries(2023 INTERFACE cosmic_expansion)
