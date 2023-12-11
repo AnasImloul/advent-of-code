@@ -2,20 +2,31 @@
 
 #include <vector>
 #include "../../utils/utils.h"
+#include "../../utils/Advent.h"
+
 
 namespace cosmicExpansion {
-    inline static std::string input_file = "../2023/day_11/in.txt";
+    class CosmicExpansion : Advent {
 
-    static const char GALAXY = '#';
+        inline ll calculateColumnDistance(int col1, int col2, int expansionRate) {
+            if (col1 > col2) std::swap(col1, col2);
+            return (ll) (emptyColumns[col2 + 1] - emptyColumns[col1]) * (ll) (expansionRate - 1) + (col2 - col1);
+        }
 
-    static std::vector<int> emptyColumns;
-    static std::vector<int> emptyRows;
-    static std::vector<std::pair<int, int>> galaxies;
+        inline ll calculateRowDistance(int row1, int row2, int expansionRate) {
+            if (row1 > row2) std::swap(row1, row2);
+            return (ll) (emptyRows[row2 + 1] - emptyRows[row1]) * (ll) (expansionRate - 1) + (row2 - row1);
+        }
 
-    ll firstPart();
-    ll secondPart();
-    namespace {
-        void setup(std::vector<std::string>& universe) {
+        ll calculateDistance(std::pair<int, int> &start, std::pair<int, int> &end, int expansionRate) {
+            auto [row1, col1] = start;
+            auto [row2, col2] = end;
+            return calculateColumnDistance(col1, col2, expansionRate) + calculateRowDistance(row1, row2, expansionRate);
+        }
+
+    protected:
+        CosmicExpansion() : Advent(input_file) {
+            universe = utils::readLines(in);
             galaxies = std::vector<std::pair<int, int>>();
             emptyRows = std::vector<int>(universe.size() + 1, 1);
             emptyColumns = std::vector<int>(universe[0].size() + 1, 1);
@@ -37,26 +48,7 @@ namespace cosmicExpansion {
                 emptyColumns[col] += emptyColumns[col - 1];
         }
 
-        inline ll calculateColumnDistance(int col1, int col2, int expansionRate) {
-            if (col1 > col2) std::swap(col1, col2);
-            return (ll)(emptyColumns[col2 + 1] - emptyColumns[col1]) * (ll)(expansionRate - 1) + (col2 - col1);
-        }
-
-        inline ll calculateRowDistance(int row1, int row2, int expansionRate) {
-            if (row1 > row2) std::swap(row1, row2);
-            return (ll)(emptyRows[row2 + 1] - emptyRows[row1]) * (ll)(expansionRate - 1) + (row2 - row1);
-        }
-
-        ll calculateDistance(std::pair<int, int>& start, std::pair<int, int>& end, int expansionRate) {
-            auto [row1, col1] = start;
-            auto [row2, col2] = end;
-            return calculateColumnDistance(col1, col2, expansionRate) + calculateRowDistance(row1, row2, expansionRate);
-        }
-
-        ll solve(int expansionRate) {
-            std::vector<std::string> universe = utils::readLines();
-            setup(universe);
-
+        ll calculatePairDistances(int expansionRate) {
             ll answer = 0;
             for (int i = 0; i < galaxies.size(); i++) {
                 for (int j = i + 1; j < galaxies.size(); j++) {
@@ -65,5 +57,15 @@ namespace cosmicExpansion {
             }
             return answer;
         }
-    }
+
+    private:
+        inline static std::string input_file = "../2023/day_11/in.txt";
+        static const char GALAXY = '#';
+
+        std::vector<std::string> universe;
+        std::vector<int> emptyColumns;
+        std::vector<int> emptyRows;
+        std::vector<std::pair<int, int>> galaxies;
+
+    };
 }

@@ -100,9 +100,24 @@ namespace utils {
         return lines;
     }
 
+
     std::string readLine() {
         std::string line;
         std::getline(std::cin, line);
+        return line;
+    }
+
+    std::vector<std::string> readLines(std::istream& cin) {
+        std::vector<std::string> lines;
+        while (!cin.eof()) {
+            lines.push_back(readLine(cin));
+        }
+        return lines;
+    }
+
+    std::string readLine(std::istream& cin) {
+        std::string line;
+        std::getline(cin, line);
         return line;
     }
 

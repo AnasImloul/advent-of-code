@@ -3,4 +3,9 @@ set(UTILS
         utils.cpp
 )
 
-add_library(utils ${UTILS})
+set (ADVENT
+        advent.h
+        advent.cpp
+)
+
+add_library(utils ${UTILS} ${ADVENT})

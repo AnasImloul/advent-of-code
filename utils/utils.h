@@ -13,7 +13,6 @@ namespace utils {
 
     static auto isalpha = [](char c) { return (bool) std::isalpha(c); };
     static auto isdigit = [](char c) { return (bool) std::isdigit(c); };
-    static auto isspace = [](char c) { return c == ' '; };
     static auto isalnum = [](char c) { return isalpha(c) || isdigit(c); };
 
     // a function to skip indices in a string until a condition is met
@@ -29,6 +28,10 @@ namespace utils {
     std::string readWhile(const std::string& str, int& i, Condition<char> condition);
 
     std::vector<std::string> readLines();
+
+    std::vector<std::string> readLines(std::istream& cin);
+
+    std::string readLine(std::istream& cin);
 
     std::string readLine();
 

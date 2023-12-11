@@ -11,7 +11,6 @@ int solver() {
         State state = State(0, 0, 0, 0, 1, 0, 0, 0);
         std::unordered_map<uint64_t , int> cache;
         int score = solve(state, blueprint, 24, cache);
-        std::cout << score << std::endl;
         answer += score * id++;
     }
     return 10;

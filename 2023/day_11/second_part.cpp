@@ -2,10 +2,12 @@
 
 using namespace cosmicExpansion;
 
-ll solver() {
-    return solve(1'000'000);
-}
+class SecondPart : CosmicExpansion {
 
-ll cosmicExpansion::secondPart() {
-    return utils::solve(solver, input_file);
-}
+public:
+    SecondPart() : CosmicExpansion() {}
+
+    std::string solve() override {
+        return std::to_string(calculatePairDistances(1'000'000));
+    }
+};
