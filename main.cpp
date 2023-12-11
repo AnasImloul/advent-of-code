@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "2023/day_10/cosmic_expansion.h"
+#include "2023/day_11/cosmic_expansion.h"
 
 
 int main() {
-    int64_t start = utils::currentTimeMillis();
+    int64_t start = utils::currentTimeMicros();
 
-    std::cout << pipeMaze::secondPart() << std::endl;
-    std::cout << "Time: " << utils::currentTimeMillis() - start << " us" << std::endl;
+    std::cout << cosmicExpansion::secondPart() << std::endl;
+    std::cout << "Time: " << utils::currentTimeMicros() - start << " us" << std::endl;
     return 0;
 }

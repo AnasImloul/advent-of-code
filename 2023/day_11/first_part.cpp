@@ -1,14 +1,11 @@
 #include "cosmic_expansion.h"
 
-using namespace pipeMaze;
+using namespace cosmicExpansion;
 
-int solver() {
-    std::vector<std::string> maze = utils::readLines();
-    setup(maze);
-    std::pair<int, int> pos = pipeMaze::getStartingPoint(maze);
-    return (int)solveLoopElements(pos, maze).size() / 2;
+ll solver() {
+    return solve(2ll);
 }
 
-int pipeMaze::firstPart() {
+ll cosmicExpansion::firstPart() {
     return utils::solve(solver, input_file);
 }
