@@ -3,7 +3,7 @@
 using namespace cosmicExpansion;
 
 ll solver() {
-    return solve(2ll);
+    return solve(2);
 }
 
 ll cosmicExpansion::firstPart() {

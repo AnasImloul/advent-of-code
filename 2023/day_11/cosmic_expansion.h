@@ -20,34 +20,34 @@ namespace cosmicExpansion {
     namespace {
         void setup(std::vector<std::string>& universe) {
             galaxies = std::vector<std::pair<int, int>>();
-            emptyRows = std::vector<int>(universe.size());
-            emptyColumns = std::vector<int>(universe[0].size());
+            emptyRows = std::vector<int>(universe.size() + 1, 1);
+            emptyColumns = std::vector<int>(universe[0].size() + 1, 1);
 
             for (int row = 0; row < universe.size(); row++) {
                 for (int col = 0; col < universe[row].size(); col++) {
                     if (universe[row][col] == GALAXY) {
                         galaxies.emplace_back(row, col);
-                        emptyColumns[col] = 0;
-                        emptyRows[row] = 0;
+                        emptyColumns[col + 1] = 0;
+                        emptyRows[row + 1] = 0;
                     }
                 }
             }
 
-            for (int row = 1; row < universe.size(); row++)
+            for (int row = 1; row <= universe.size(); row++)
                 emptyRows[row] += emptyRows[row - 1];
 
-            for (int col = 1; col < universe.size(); col++)
+            for (int col = 1; col <= universe.size(); col++)
                 emptyColumns[col] += emptyColumns[col - 1];
         }
 
         inline ll calculateColumnDistance(int col1, int col2, int expansionRate) {
             if (col1 > col2) std::swap(col1, col2);
-            return (emptyColumns[col2] - (col1 != 0 ? emptyColumns[col1] : 0)) * (ll)(expansionRate - 1) + (col2 - col1);
+            return (ll)(emptyColumns[col2 + 1] - emptyColumns[col1]) * (ll)(expansionRate - 1) + (col2 - col1);
         }
 
         inline ll calculateRowDistance(int row1, int row2, int expansionRate) {
             if (row1 > row2) std::swap(row1, row2);
-            return (emptyRows[row2] - (row1 != 0 ? emptyRows[row1] : 0)) * (ll)(expansionRate - 1) + (row2 - row1);
+            return (ll)(emptyRows[row2 + 1] - emptyRows[row1]) * (ll)(expansionRate - 1) + (row2 - row1);
         }
 
         ll calculateDistance(std::pair<int, int>& start, std::pair<int, int>& end, int expansionRate) {
