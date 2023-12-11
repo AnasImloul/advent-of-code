@@ -13,46 +13,31 @@ namespace cosmicExpansion {
 
     static std::vector<int> emptyColumns;
     static std::vector<int> emptyRows;
+    static std::vector<std::pair<int, int>> galaxies;
 
     ll firstPart();
     ll secondPart();
     namespace {
-        std::vector<std::pair<int, int>> getGalaxies(std::vector<std::string>& universe) {
-            std::vector<std::pair<int, int>> galaxies;
+        void setup(std::vector<std::string>& universe) {
+            galaxies = std::vector<std::pair<int, int>>();
+            emptyRows = std::vector<int>(universe.size());
+            emptyColumns = std::vector<int>(universe[0].size());
+
             for (int row = 0; row < universe.size(); row++) {
                 for (int col = 0; col < universe[row].size(); col++) {
-                    if (universe[row][col] == GALAXY) galaxies.emplace_back(row, col);
+                    if (universe[row][col] == GALAXY) {
+                        galaxies.emplace_back(row, col);
+                        emptyColumns[col] = 0;
+                        emptyRows[row] = 0;
+                    }
                 }
             }
-            return galaxies;
-        }
 
-        bool isRowEmpty(std::vector<std::string>& universe, int row) {
-            for (int col = 0; col < universe[row].size(); col++) {
-                if (universe[row][col] == GALAXY) return false;
-            }
-            return true;
-        }
+            for (int row = 1; row < universe.size(); row++)
+                emptyRows[row] += emptyRows[row - 1];
 
-        bool isColumnEmpty(std::vector<std::string>& universe, int col) {
-            for (int row = 0; row < universe.size(); row++) {
-                if (universe[row][col] == GALAXY) return false;
-            }
-            return true;
-        }
-
-        void setup(std::vector<std::string>& universe) {
-            emptyRows = std::vector<int>(universe.size());
-            for (int row = 0; row < universe.size(); row++) {
-                if (isRowEmpty(universe, row)) emptyRows[row] = 1;
-                if (row != 0) emptyRows[row] += emptyRows[row - 1];
-            }
-
-            emptyColumns = std::vector<int>(universe[0].size());
-            for (int col = 0; col < universe.size(); col++) {
-                if (isColumnEmpty(universe, col)) emptyColumns[col] = 1;
-                if (col != 0) emptyColumns[col] += emptyColumns[col - 1];
-            }
+            for (int col = 1; col < universe.size(); col++)
+                emptyColumns[col] += emptyColumns[col - 1];
         }
 
         inline ll calculateColumnDistance(int col1, int col2, int expansionRate) {
@@ -75,15 +60,12 @@ namespace cosmicExpansion {
             std::vector<std::string> universe = utils::readLines();
             setup(universe);
 
-            std::vector<std::pair<int, int>> galaxies = getGalaxies(universe);
-
             ll answer = 0;
             for (int i = 0; i < galaxies.size(); i++) {
                 for (int j = i + 1; j < galaxies.size(); j++) {
                     answer += calculateDistance(galaxies[i], galaxies[j], expansionRate);
                 }
             }
-
             return answer;
         }
     }
