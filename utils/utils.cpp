@@ -132,7 +132,7 @@ namespace utils {
     }
 
     bool isPointInsidePolygon(std::pair<int, int> point, const std::vector<std::pair<int, int>>& polygon) {
-        int n = polygon.size();
+        int n = (int)polygon.size();
         int count = 0;
         auto [x, y] = point;
         for (int i = 0; i < n; ++i) {

@@ -18,10 +18,7 @@ int dfs(std::pair<int, int> current, std::vector<std::string>& maze) {
         std::pair<int, int> pos = stack.top();
         stack.pop();
 
-        if (visited[pos.first][pos.second]) {
-            continue;
-        }
-
+        if (visited[pos.first][pos.second]) continue;
         visited[pos.first][pos.second] = true;
 
         answer++;
@@ -32,7 +29,6 @@ int dfs(std::pair<int, int> current, std::vector<std::string>& maze) {
             stack.push(neighbor);
         }
     }
-
     return answer;
 }
 
@@ -45,18 +41,17 @@ int solver() {
     std::pair<int, int> pos = pipeMaze::getStartingPoint(maze);
 
     std::vector<std::pair<int, int>> loop_elements = solveLoopElements(pos, maze);
-    for (auto& p: loop_elements) {
-        visited[p.first][p.second] = true;
-    }
 
-    int answer = 0;
+    for (auto& p: loop_elements)
+        visited[p.first][p.second] = true;
 
     std::vector<std::pair<int, int>> polygon = utils::reducePolygon(loop_elements);
 
-    for (int y = 0; y < maze.size(); y++) {
-        for (int x = 0; x < maze[y].size(); x++) {
-            if (!visited[y][x]) {
-                std::pair<int, int> point = {y, x};
+    int answer = 0;
+    for (int i = 0; i < maze.size(); i++) {
+        for (int j = 0; j < maze[i].size(); j++) {
+            if (!visited[i][j]) {
+                std::pair<int, int> point = {i, j};
                 int size = dfs(point, maze);
                 if (utils::isPointInsidePolygon(point, polygon)) {
                     answer += size;
