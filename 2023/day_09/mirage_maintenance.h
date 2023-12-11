@@ -2,21 +2,16 @@
 
 #include <vector>
 #include "../../utils/utils.h"
+#include "../../utils/Advent.h"
 
 namespace mirageMaintenance {
-    inline static std::string input_file = "../2023/day_09/in.txt";
-
-    int firstPart();
-    int secondPart();
-
-    namespace {
-        std::vector<std::vector<int>> readInput() {
-            std::vector<std::vector<int>> input;
-            for (std::string& line : utils::readLines()) {
-                input.emplace_back(utils::parseIntegers(line));
+    class MirageMaintenance : public Advent {
+    protected:
+        MirageMaintenance() : Advent(input_file) {
+            for (std::string& line : utils::readLines(in)) {
+                lines.emplace_back(utils::parseIntegers(line));
             }
-            return input;
-        }
+        };
 
         int extrapolate(std::vector<int>& line, int n) {
             if (n == 1) {
@@ -42,5 +37,9 @@ namespace mirageMaintenance {
 
             return answer;
         }
-    }
+
+        inline static std::string input_file = "../2023/day_09/in.txt";
+
+        std::vector<std::vector<int>> lines;
+    };
 }

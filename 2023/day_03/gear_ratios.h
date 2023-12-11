@@ -2,20 +2,26 @@
 
 #include <vector>
 #include "../../utils/utils.h"
+#include "../../utils/Advent.h"
 
 namespace gearRatios {
-    inline static std::string input_file = "../2023/day_03/in.txt";
-    int firstPart();
-    int secondPart();
-    namespace {
-        using SpecialCharacterChecker = void(int, int, bool&, std::vector<std::string>&);
-        using Setup = void();
-        using Update = void(int, int&);
-        using Finalize = void(int&);
+    class GearRatios : public Advent {
+    protected:
+        GearRatios() : Advent(input_file) {
+            lines = utils::readLines(in);
+        }
 
-        int solve(SpecialCharacterChecker checkForSpecialCharacter, Setup setup, Update update, Finalize finalize) {
+        virtual void checkForSpecialCharacter(int i, int j, bool& marked) = 0;
+        virtual void setup() = 0;
+        virtual void update(int number, int& answer) = 0;
+        virtual void finalize(int& answer) = 0;
+
+        std::string solve() override {
+            return std::to_string(solveRatios());
+        }
+
+        int solveRatios() {
             int answer = 0;
-            std::vector<std::string> lines = utils::readLines();
 
             int n = (int)lines.size();
             for (int i = 0; i < n; i++) {
@@ -27,22 +33,22 @@ namespace gearRatios {
                     bool marked = false;
                     setup();
 
-                    checkForSpecialCharacter(i - 1, j - 1, marked, lines);
-                    checkForSpecialCharacter(i, j - 1, marked, lines);
-                    checkForSpecialCharacter(i + 1, j - 1, marked, lines);
+                    checkForSpecialCharacter(i - 1, j - 1, marked);
+                    checkForSpecialCharacter(i, j - 1, marked);
+                    checkForSpecialCharacter(i + 1, j - 1, marked);
 
                     int number = 0;
                     while (j < m && isdigit(lines[i][j])) {
-                        checkForSpecialCharacter(i - 1, j, marked, lines);
-                        checkForSpecialCharacter(i + 1, j, marked, lines);
+                        checkForSpecialCharacter(i - 1, j, marked);
+                        checkForSpecialCharacter(i + 1, j, marked);
 
                         number = number * 10 + (lines[i][j] - '0');
                         j++;
                     }
 
-                    checkForSpecialCharacter(i - 1, j, marked, lines);
-                    checkForSpecialCharacter(i, j, marked, lines);
-                    checkForSpecialCharacter(i + 1, j, marked, lines);
+                    checkForSpecialCharacter(i - 1, j, marked);
+                    checkForSpecialCharacter(i, j, marked);
+                    checkForSpecialCharacter(i + 1, j, marked);
 
                     if (marked) update(number, answer);
                 }
@@ -51,6 +57,10 @@ namespace gearRatios {
             return answer;
         }
 
-        inline bool isSpecialChar(char c) { return !isdigit(c) && c != '.'; }
-    }
+        inline static bool isSpecialChar(char c) { return !isdigit(c) && c != '.'; }
+
+        inline static std::string input_file = "../2023/day_03/in.txt";
+
+        std::vector<std::string> lines;
+    };
 }

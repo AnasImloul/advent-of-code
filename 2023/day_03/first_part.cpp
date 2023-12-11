@@ -3,26 +3,22 @@
 #include "gear_ratios.h"
 #include "../../utils/utils.h"
 
-using namespace gearRatios;
+namespace gearRatios {
+    class FirstPart : public GearRatios {
+    public:
+        FirstPart() : GearRatios() {}
 
-void checkForSpecialCharacter(
-        int i, int j, bool& marked,
-        std::vector<std::string>& lines) {
-    if (!utils::isOutOfBounds(i, j, (int)lines.size(), (int)lines[i].size())) {
-        marked |= isSpecialChar(lines[i][j]);
-    }
-}
+    private:
+        void checkForSpecialCharacter(int i, int j, bool &marked) override {
+            if (!utils::isOutOfBounds(i, j, (int) lines.size(), (int) lines[i].size())) {
+                marked |= isSpecialChar(lines[i][j]);
+            }
+        }
 
-void setup() {}
+        void setup() override {}
 
-void update(int number ,int& answer) { answer += number; }
+        void update(int number, int &answer) override { answer += number; }
 
-void finalize(int& answer [[maybe_unused]]) {}
-
-int solver() {
-    return solve(checkForSpecialCharacter, setup, update, finalize);
-}
-
-int gearRatios::firstPart() {
-    return utils::solve(solver, input_file);
+        void finalize(int &answer [[maybe_unused]]) override {}
+    };
 }

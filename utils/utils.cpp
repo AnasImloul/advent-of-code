@@ -100,7 +100,6 @@ namespace utils {
         return lines;
     }
 
-
     std::string readLine() {
         std::string line;
         std::getline(std::cin, line);

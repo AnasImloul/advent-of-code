@@ -1,14 +1,13 @@
 #include "pipe_maze.h"
 
-using namespace pipeMaze;
+namespace pipeMaze {
+    class FirstPart : public PipeMaze {
 
-int solver() {
-    std::vector<std::string> maze = utils::readLines();
-    setup(maze);
-    std::pair<int, int> pos = pipeMaze::getStartingPoint(maze);
-    return (int)solveLoopElements(pos, maze).size() / 2;
-}
+        std::string solve() override {
+            return std::to_string(getLoopElements().size() / 2);
+        }
 
-int pipeMaze::firstPart() {
-    return utils::solve(solver, input_file);
+    public:
+        FirstPart() : PipeMaze() {}
+    };
 }
