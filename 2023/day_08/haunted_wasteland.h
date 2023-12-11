@@ -1,14 +1,9 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
 #include <vector>
-#include <cstring>
 #include <unordered_map>
-#include <cstdint>
 #include <array>
 #include "../../utils/utils.h"
-
 
 namespace hauntedWasteland {
     inline static std::string input_file = "../2023/day_08/in.txt";

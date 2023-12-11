@@ -1,13 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cstring>
-#include <map>
-#include <cstdint>
 #include "../../utils/utils.h"
-
 
 namespace waitForIt {
     inline static std::string input_file = "../2023/day_06/in.txt";

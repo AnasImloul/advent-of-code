@@ -1,10 +1,7 @@
 #pragma once
 
-#include <iostream>
 #include <vector>
-#include <cstdint>
 #include "../../utils/utils.h"
-
 
 namespace cosmicExpansion {
     inline static std::string input_file = "../2023/day_11/in.txt";

@@ -1,21 +1,10 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
 #include <vector>
-#include <cstring>
-#include <unordered_map>
-#include <cstdint>
-#include <array>
-#include <unordered_set>
-#include <algorithm>
 #include "../../utils/utils.h"
-
 
 namespace pipeMaze {
     using Point = std::pair<int, int>;
-
-    using NeighborsMap = std::unordered_map<char, std::vector<Point>>;
 
     inline static std::string input_file = "../2023/day_11/in.txt";
 
