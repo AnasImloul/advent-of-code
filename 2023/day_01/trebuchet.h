@@ -12,7 +12,7 @@ namespace trebuchet {
 
         int calculateScore(std::string& line, DigitChecker digitChecker){
             int left = -1, right = -1;
-            for (int i = 0; i < line.size(); i++) {
+            for (int i = 0; i < (int)line.size(); i++) {
                 int digit = digitChecker(line, i);
                 if (digit != -1) {
                     if (left == -1) left = digit;

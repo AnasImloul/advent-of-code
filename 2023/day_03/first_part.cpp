@@ -17,7 +17,7 @@ void setup() {}
 
 void update(int number ,int& answer) { answer += number; }
 
-void finalize(int& answer) {}
+void finalize(int& answer [[maybe_unused]]) {}
 
 int solver() {
     return solve(checkForSpecialCharacter, setup, update, finalize);

@@ -8,28 +8,28 @@
 namespace utils {
 
     void skipUntil(const std::string &str, int &i, Condition<char> *condition) {
-        while (i < str.size() && !condition(str[i])) {
+        while (i < (int)str.size() && !condition(str[i])) {
             i++;
         }
     }
 
     std::string readUntil(const std::string &str, int &i, Condition<char> *condition) {
         int j = i;
-        while (i < str.size() && !condition(str[i])) {
+        while (i < (int)str.size() && !condition(str[i])) {
             i++;
         }
         return str.substr(j, i - j);
     }
 
     void skipWhile(const std::string &str, int &i, Condition<char> *condition) {
-        while (i < str.size() && condition(str[i])) {
+        while (i < (int)str.size() && condition(str[i])) {
             i++;
         }
     }
 
     std::string readWhile(const std::string &str, int &i, Condition<char> *condition) {
         int j = i;
-        while (i < str.size() && condition(str[i])) {
+        while (i < (int)str.size() && condition(str[i])) {
             i++;
         }
         return str.substr(j, i - j);
@@ -44,7 +44,7 @@ namespace utils {
             i++;
         }
         int number = 0;
-        while (i < str.size() && isdigit(str[i])) {
+        while (i < (int)str.size() && isdigit(str[i])) {
             number = number * 10 + (str[i] - '0');
             i++;
         }
@@ -60,7 +60,7 @@ namespace utils {
             i++;
         }
         long long number = 0;
-        while (i < str.size() && isdigit(str[i])) {
+        while (i < (int)str.size() && isdigit(str[i])) {
             number = number * 10 + (str[i] - '0');
             i++;
         }
@@ -71,7 +71,7 @@ namespace utils {
         std::vector<int> numbers;
 
         int i = 0;
-        while (i < line.size()) {
+        while (i < (int)line.size()) {
             skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             int number = nextInt(line, i);
             numbers.push_back(number);
@@ -83,7 +83,7 @@ namespace utils {
         std::vector<long long> numbers;
 
         int i = 0;
-        while (i < line.size()) {
+        while (i < (int)line.size()) {
             skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             long long number = nextLong(line, i);
             numbers.push_back(number);
@@ -122,7 +122,7 @@ namespace utils {
     }
 
     bool isOutOfBounds(int i, int j, int n, int m) {
-        return i < 0 | i >= n | j < 0 | j >= m;
+        return (i < 0) | (i >= n) | (j < 0) | (j >= m);
     }
 
     bool areParallel(const std::pair<int, int>& a, const std::pair<int, int>& b, const std::pair<int, int>& c) {
@@ -136,7 +136,7 @@ namespace utils {
         reduced.push_back(polygon[0]);
         reduced.push_back(polygon[1]);
 
-        for (int i = 2; i < polygon.size(); i++) {
+        for (int i = 2; i < (int)polygon.size(); i++) {
             if (areParallel(polygon[i], reduced[reduced.size() - 2], reduced[reduced.size() - 1])) {
                 reduced.pop_back();
             }

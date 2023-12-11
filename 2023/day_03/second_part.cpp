@@ -22,7 +22,7 @@ void setup() {
     currentGears.clear();
 }
 
-void update(int number, int& answer) {
+void update(int number, int& answer [[maybe_unused]]) {
     for (auto gear: currentGears) {
         if (gears.find(gear) == gears.end()) {
             gears[gear] = {number, -1};

@@ -18,14 +18,14 @@ namespace scratchcards {
             utils::skipUntil(line, i, [](char c){return c == ':';});
 
             i++;
-            while (i < line.size()) {
+            while (i < (int)line.size()) {
                 utils::skipUntil(line, i, [](char c){return c != ' ';});
                 if (line[i] == '|') break;
                 int number = utils::nextInt(line, i);
                 winner[number] = true;
             }
 
-            while (i < line.size()) {
+            while (i < (int)line.size()) {
                 utils::skipUntil(line, i, [](char c){return (bool)isdigit(c);});
                 int number = utils::nextInt(line, i);
                 if (winner[number]) match++;

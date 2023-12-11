@@ -16,7 +16,7 @@ namespace cubeConundrum {
             utils::skipUntil(line, i, [](char c){return c == ':';});
 
             int red = 0, blue = 0, green = 0;
-            while (i < line.size()) {
+            while (i < (int)line.size()) {
                 utils::skipUntil(line, i, [](char c){return (bool)isdigit(c);});
 
                 int amount = utils::nextInt(line, i);

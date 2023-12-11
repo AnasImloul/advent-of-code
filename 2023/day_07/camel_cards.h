@@ -16,7 +16,7 @@ namespace camelCards {
         using SortingAlgorithm = void (std::vector<BiddingHand>& hands);
 
         int cardToNumber(const char &c, const std::string& cards) {
-            for (int i = 0; i < cards.size(); i++) {
+            for (int i = 0; i < (int)cards.size(); i++) {
                 if (c == cards[i]) return i;
             }
             return 0;
@@ -34,7 +34,7 @@ namespace camelCards {
         int getHandType(const std::string &hand) {
             static int count[256];
             memset(count, 0, sizeof(count));
-            for (const char& card: hand) count[card]++;
+            for (const char& card: hand) count[(unsigned char)card]++;
 
             static int repeated[6];
             memset(repeated, 0, sizeof(repeated));
@@ -66,7 +66,7 @@ namespace camelCards {
             sortingAlgorithm(hands);
 
             int answer = 0;
-            for (int i = 0; i < hands.size(); i++) {
+            for (int i = 0; i < (int)hands.size(); i++) {
                 answer += (i + 1) * hands[i].second;
             }
 

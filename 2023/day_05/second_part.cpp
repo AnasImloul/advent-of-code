@@ -7,7 +7,7 @@ using namespace fertilizer;
 
 ll processSeeds(std::vector<ll>& seeds, std::vector<Transformer>& transformers) {
     ll answer = INT64_MAX;
-    for (int j = 0; j + 1 < seeds.size(); j += 2) {
+    for (int j = 0; j + 1 < (int)seeds.size(); j += 2) {
         answer = std::min(answer, dfs({seeds[j], seeds[j] + seeds[j + 1] - 1}, transformers, 0));
     }
     return answer;

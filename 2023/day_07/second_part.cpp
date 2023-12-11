@@ -9,7 +9,7 @@ using namespace camelCards;
 static std::string cards = "J23456789TQKA";
 
 void replace(const std::string &hand, std::string &newHand, char oldChar, char newChar) {
-    for (int i = 0; i < hand.size(); i++) {
+    for (int i = 0; i < (int)hand.size(); i++) {
         if (hand[i] == oldChar) newHand[i] = newChar;
         else newHand[i] = hand[i];
     }

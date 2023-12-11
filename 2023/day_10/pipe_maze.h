@@ -44,8 +44,8 @@ namespace pipeMaze {
         }
 
         Point getStartingPoint(std::vector<std::string>& lines) {
-            for (int i = 0; i < lines.size(); i++) {
-                for (int j = 0; j < lines[i].size(); j++) {
+            for (int i = 0; i < (int)lines.size(); i++) {
+                for (int j = 0; j < (int)lines[i].size(); j++) {
                     if (lines[i][j] == 'S') {
                         return {i, j};
                     }
@@ -54,9 +54,10 @@ namespace pipeMaze {
             return {-1, -1};
         }
 
+        [[maybe_unused]]
         bool isOutOfBounds(Point point, std::vector<std::string>& maze) {
             auto [y, x] = point;
-            return y < 0 || y >= maze.size() || x < 0 || x >= maze[x].size();
+            return y < 0 || y >= (int)maze.size() || x < 0 || x >= (int)maze[x].size();
         }
 
         bool getLoopElements(Point current, Point start, std::vector<std::string>& maze, std::vector<Point>& answer) {

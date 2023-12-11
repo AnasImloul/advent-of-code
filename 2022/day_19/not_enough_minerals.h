@@ -67,7 +67,7 @@ namespace notEnoughMinerals {
             utils::skipUntil(line, i, [](char c){return c == ':';});
 
             for (int j = 0; j < 4; j++) {
-                while (i < line.size() && line[i] != '.') {
+                while (i < (int)line.size() && line[i] != '.') {
                     utils::skipUntil(line, i, utils::isdigit);
                     int amount = utils::nextInt(line, i);
 

@@ -48,8 +48,8 @@ int solver() {
     std::vector<std::pair<int, int>> polygon = utils::reducePolygon(loop_elements);
 
     int answer = 0;
-    for (int i = 0; i < maze.size(); i++) {
-        for (int j = 0; j < maze[i].size(); j++) {
+    for (int i = 0; i < (int)maze.size(); i++) {
+        for (int j = 0; j < (int)maze[i].size(); j++) {
             if (!visited[i][j]) {
                 std::pair<int, int> point = {i, j};
                 int size = dfs(point, maze);

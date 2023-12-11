@@ -6,7 +6,7 @@
 
 
 namespace cosmicExpansion {
-    class CosmicExpansion : Advent {
+    class CosmicExpansion : public Advent {
 
         inline ll calculateColumnDistance(int col1, int col2, int expansionRate) {
             if (col1 > col2) std::swap(col1, col2);
@@ -31,8 +31,8 @@ namespace cosmicExpansion {
             emptyRows = std::vector<int>(universe.size() + 1, 1);
             emptyColumns = std::vector<int>(universe[0].size() + 1, 1);
 
-            for (int row = 0; row < universe.size(); row++) {
-                for (int col = 0; col < universe[row].size(); col++) {
+            for (int row = 0; row < (int)universe.size(); row++) {
+                for (int col = 0; col < (int)universe[row].size(); col++) {
                     if (universe[row][col] == GALAXY) {
                         galaxies.emplace_back(row, col);
                         emptyColumns[col + 1] = 0;
@@ -41,17 +41,17 @@ namespace cosmicExpansion {
                 }
             }
 
-            for (int row = 1; row <= universe.size(); row++)
+            for (int row = 1; row <= (int)universe.size(); row++)
                 emptyRows[row] += emptyRows[row - 1];
 
-            for (int col = 1; col <= universe.size(); col++)
+            for (int col = 1; col <= (int)universe.size(); col++)
                 emptyColumns[col] += emptyColumns[col - 1];
         }
 
         ll calculatePairDistances(int expansionRate) {
             ll answer = 0;
-            for (int i = 0; i < galaxies.size(); i++) {
-                for (int j = i + 1; j < galaxies.size(); j++) {
+            for (int i = 0; i < (int)galaxies.size(); i++) {
+                for (int j = i + 1; j < (int)galaxies.size(); j++) {
                     answer += calculateDistance(galaxies[i], galaxies[j], expansionRate);
                 }
             }

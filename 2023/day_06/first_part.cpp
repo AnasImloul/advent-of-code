@@ -12,7 +12,7 @@ int solver() {
 
     int answer = 1;
 
-    for (int i = 0; i < times.size(); i++) {
+    for (int i = 0; i < (int)times.size(); i++) {
         answer *= winningRecharges(times[i], distances[i]);
     }
 
