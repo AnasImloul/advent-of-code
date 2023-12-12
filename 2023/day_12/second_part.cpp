@@ -5,14 +5,12 @@ namespace hotSprings {
     public:
         SecondPart() : HotSprings() {}
 
-
         ll countTotalCorrectArrangements() {
             ll count = 0;
             for (std::string& line: lines) {
                 auto [l1, record1] = parseLine(line);
                 auto [l2, record2] = unwrap(l1, record1);
                 count += countCorrectArrangements(l2, record2);
-
             }
             return count;
         }
