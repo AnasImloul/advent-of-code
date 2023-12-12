@@ -30,35 +30,33 @@ namespace hotSprings {
                 std::vector<std::vector<ll>>& cache,
                 int i, int j) {
 
-            int _i = i, _j = j;
+            if (cache[i][j] != -1) return cache[i][j];
 
-            if (cache[_i][_j] != -1) return cache[_i][_j];
-
-            int k = record[j];
-            while (k > 0 && i < (int)line.size() && line[i] != OPERATIONAL) {
-                i++, k--;
+            int k = i;
+            for (int _ = 0; _ < record[j]; _++) {
+                if (line[k] == OPERATIONAL) return cache[i][j] = 0;
+                if (k == (int)line.size()) return cache[i][j] = 0;
+                k++;
             }
 
-            if (k != 0 || (i < (int)line.size() && line[i] == DAMAGED)) {
-                return cache[_i][_j] = 0;
-            }
+            if (k < (int)line.size() && line[k] == DAMAGED)
+                return cache[i][j] = 0;
 
             if (j + 1 == (int)record.size()) {
-                while (i < (int)line.size() && line[i] != DAMAGED) {
-                    i++;
+                while (k < (int)line.size() && line[k] != DAMAGED) {
+                    k++;
                 }
-                if (i == (int)line.size()) return cache[_i][_j] = 1;
-                else return cache[_i][_j] = 0;
+                return cache[i][j] = (k == (int)line.size() ? 1 : 0);
             }
 
             ll result = 0;
-            for (int l = i + 1; l < (int)line.size(); l++) {
+            for (int l = k + 1; l < (int)line.size(); l++) {
                 if (line[l] == OPERATIONAL) continue;
                 result += countCorrectArrangementsHelper(line, record, cache, l, j + 1);
                 if (line[l] == DAMAGED) break;
             }
 
-            return cache[_i][_j] = result;
+            return cache[i][j] = result;
         }
 
         static std::pair<std::string, std::vector<int>> parseLine(const std::string& line) {
@@ -70,7 +68,6 @@ namespace hotSprings {
         }
 
         inline static std::string input_file = "../2023/day_12/in.txt";
-        static const char UNKNOWN = '?';
         static const char DAMAGED = '#';
         static const char OPERATIONAL = '.';
 
