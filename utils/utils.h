@@ -14,6 +14,7 @@ namespace utils {
     static auto isalpha = [](char c) { return (bool) std::isalpha(c); };
     static auto isdigit = [](char c) { return (bool) std::isdigit(c); };
     static auto isalnum = [](char c) { return isalpha(c) || isdigit(c); };
+    static auto isspace = [](char c) { return c == ' '; };
 
     // a function to skip indices in a string until a condition is met
     void skipUntil(const std::string& str, int& i, Condition<char> condition);
@@ -39,11 +40,11 @@ namespace utils {
 
     int nextInt(const std::string& str, int& i);
 
-    std::vector<int> parseIntegers(std::string& line);
+    std::vector<int> parseIntegers(const std::string& line, int i = 0);
 
     ll nextLong(const std::string& str, int& i);
 
-    std::vector<ll> parseLongs(std::string& line);
+    std::vector<ll> parseLongs(const std::string& line, int i = 0);
 
     bool areParallel(const std::pair<int, int>& a, const std::pair<int, int>& b, const std::pair<int, int>& c);
 
@@ -56,6 +57,8 @@ namespace utils {
     int64_t currentTimeMicros();
 
     int64_t currentTimeNanos();
+
+    void fastIO();
 
     template<typename T>
     void show(std::vector<T> arr) {

@@ -1,14 +1,18 @@
 #include <iostream>
-#include "2023/day_09/first_part.cpp"
-#include "2023/day_09/second_part.cpp"
+#include "2023/day_12/first_part.cpp"
+#include "2023/day_12/second_part.cpp"
 
 
 int main() {
+    // utils::fastIO();
+
     int64_t start = utils::currentTimeMicros();
 
-    Advent *advent = new mirageMaintenance::FirstPart();
+    Advent *firstPart = new hotSprings::FirstPart();
+    Advent *secondPart = new hotSprings::SecondPart();
 
-    std::cout << advent->solve() << std::endl;
+    std::cout << firstPart->solve() << std::endl;
+    std::cout << secondPart->solve() << std::endl;
     std::cout << "Time: " << utils::currentTimeMicros() - start << " us" << std::endl;
     return 0;
 }

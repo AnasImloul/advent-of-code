@@ -67,10 +67,9 @@ namespace utils {
         return sign * number;
     }
 
-    std::vector<int> parseIntegers(std::string &line) {
+    std::vector<int> parseIntegers(const std::string &line, int i) {
         std::vector<int> numbers;
 
-        int i = 0;
         while (i < (int)line.size()) {
             skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             int number = nextInt(line, i);
@@ -79,10 +78,9 @@ namespace utils {
         return numbers;
     }
 
-    std::vector<long long> parseLongs(std::string &line) {
+    std::vector<long long> parseLongs(const std::string &line, int i) {
         std::vector<long long> numbers;
 
-        int i = 0;
         while (i < (int)line.size()) {
             skipUntil(line, i, [](char c) { return (bool) isdigit(c) || c == '-' || c == '+'; });
             long long number = nextLong(line, i);
@@ -177,5 +175,11 @@ namespace utils {
     int64_t currentTimeNanos() {
         using namespace std::chrono;
         return duration_cast<nanoseconds>(high_resolution_clock::now().time_since_epoch()).count();
+    }
+
+    void fastIO() {
+        std::ios_base::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+        std::cout.tie(nullptr);
     }
 }
