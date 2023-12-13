@@ -4,7 +4,7 @@
 
 
 int main() {
-    // utils::fastIO();
+    utils::fastIO();
 
     int64_t start = utils::currentTimeMicros();
 

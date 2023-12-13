@@ -14,49 +14,30 @@ namespace hotSprings {
         }
 
         static ll countCorrectArrangements(const std::string& line, const std::vector<int>& record) {
-            std::vector<std::vector<ll>> cache(line.size(), std::vector<ll>(record.size(), -1));
-            ll result = 0;
+            std::vector<int> operationalPrefix(line.size() + 1, 0);
             for (int i = 0; i < (int)line.size(); i++) {
-                if (line[i] == OPERATIONAL) continue;
-                result += countCorrectArrangementsHelper(line, record, cache, i, 0);
+                operationalPrefix[i + 1] = operationalPrefix[i] + (line[i] == OPERATIONAL ? 1 : 0);
+            }
+
+            std::vector<std::vector<ll>> cache(line.size() + 1, std::vector<ll>(record.size() + 1, 0));
+
+            cache[line.size()][record.size()] = 1;
+            for (int i = (int)line.size() - 1; i >= 0; i--) {
                 if (line[i] == DAMAGED) break;
-            }
-            return result;
-        }
-
-        static ll countCorrectArrangementsHelper(
-                const std::string& line,
-                const std::vector<int>& record,
-                std::vector<std::vector<ll>>& cache,
-                int i, int j) {
-
-            if (cache[i][j] != -1) return cache[i][j];
-
-            int k = i;
-            for (int _ = 0; _ < record[j]; _++) {
-                if (line[k] == OPERATIONAL) return cache[i][j] = 0;
-                if (k == (int)line.size()) return cache[i][j] = 0;
-                k++;
+                cache[i][record.size()] = 1;
             }
 
-            if (k < (int)line.size() && line[k] == DAMAGED)
-                return cache[i][j] = 0;
-
-            if (j + 1 == (int)record.size()) {
-                while (k < (int)line.size() && line[k] != DAMAGED) {
-                    k++;
+            for (int i = (int)line.size() - 1; i >= 0; i--) {
+                for (int j = (int)record.size() - 1; j >= 0; j--) {
+                    cache[i][j] = 0;
+                    if (line[i] != DAMAGED) cache[i][j] += cache[i + 1][j];
+                    if (i + record[j] <= (int)line.size() && operationalPrefix[i + record[j]] - operationalPrefix[i] == 0) {
+                        if (i + record[j] == (int)line.size()) cache[i][j] += cache[i + record[j]][j + 1];
+                        else if (line[i + record[j]] != DAMAGED) cache[i][j] += cache[i + record[j] + 1][j + 1];
+                    }
                 }
-                return cache[i][j] = (k == (int)line.size() ? 1 : 0);
             }
-
-            ll result = 0;
-            for (int l = k + 1; l < (int)line.size(); l++) {
-                if (line[l] == OPERATIONAL) continue;
-                result += countCorrectArrangementsHelper(line, record, cache, l, j + 1);
-                if (line[l] == DAMAGED) break;
-            }
-
-            return cache[i][j] = result;
+            return cache[0][0];
         }
 
         static std::pair<std::string, std::vector<int>> parseLine(const std::string& line) {
